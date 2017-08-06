@@ -1,0 +1,32 @@
+<div ng-controller="stationeryCtrl">
+	<div class="s-stationery-head-left">
+		<h3>
+			<span>文具展示</span>
+		</h3>
+	</div>
+	<div class="top-header-search-box">
+		<input type="text" placeholder="Search" ng-model="searchText">
+		<input type="submit" value=" ">
+	</div>
+	<div class="top-header-deadline" ng-show="!isDeadlineHide">
+			<div class="alert alert-dismissable alert-danger">
+				 <button type="button" ng-click="hideDeadline()" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<strong>警告：</strong>已经过了截止日期，订购文具可能无效！
+			</div>
+		</div>
+	<div class="clearfix"></div>
+	<br>
+	<div class="special-stationery-girds">
+		<div ng-repeat="item in stationery|filter: {name: searchText}">
+			<div class="col-md-2 special-stationery-grid text-center">
+				<span class="stationery-here" ng-cloak><img
+					ng-src="./style/image/t_SH_{{item.stationeryId}}.jpg" /></span>
+				<h5 ng-cloak>{{item.price|currency:'￥'}}元/{{item.standard}}</h5>
+				<h5 ng-cloak>{{item.name|shortName}}</h5>
+				<button class="stationery-btn" ng-click="addToCart(item)" ng-cloak>
+					<small>加入购物车</small><label></label>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

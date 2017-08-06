@@ -1,0 +1,53 @@
+<div ng-controller="orderCtrl">
+ <div class="col-md-8 column">
+	<table>
+		<tr>
+			<th>文具图片</th>
+			<th>文具名称</th>
+			<th>购买数量</th>
+			<th>购买单价</th>
+			<th>文具总价</th>
+			<th>操作</th>
+		</tr>
+		<tr ng-repeat="item in orderStationery">
+			<th class="stationery-picture"><img
+				ng-src="./style/image/t_SH_{{item.stationery.stationeryId}}.jpg" /></th>
+			<td>{{item.stationery.name|shortName}}</td>
+			<td>
+				<button type="button" class="btn" ng-disabled="isSaved"
+					ng-click="reduce($index)">-</button> 
+					<input type="text" name=""
+				value="" placeholder="" style="width: 35px" ng-disabled="isSaved"
+				ng-blur="onblurs(item.quantity)" ng-model="item.quantity" />
+				<button type="button" class="btn" ng-disabled="isSaved"
+					ng-click="add($index)">+</button>
+			</td>
+			<td>{{item.stationery.price|number:2|currency:'￥'}}元/{{item.stationery.standard}}</td>
+			<td>{{item.quantity*item.stationery.price|number:2|currency:'￥'}}元</td>
+			<td><button type="button" class="btn btn-danger" ng-disabled="isSaved"
+					ng-click="remove($index)">移除</button></td>
+		</tr>
+		<tr>
+			<td style="text-align: right" colspan="3">
+				购买总数：{{totalQuantity()}}</td>
+
+			<td colspan="2">总价格：{{totalPrice()|number:2}}元</td>
+			<td>
+				<button ng-if="!isSaved" type="button" class="btn btn-danger"
+					ng-click="saveOrder()">保存订单</button>
+				<button ng-if="isSaved" type="button" class="btn btn-danger"
+					ng-click="modifyOrder()">修改订单</button>
+			</td>
+		</tr>
+	</table>
+	</div>
+	<div class="col-md-4 column" ng-show="!isNoteHide">
+			<div class="alert alert-dismissable alert-success">
+				 <button type="button" ng-click="hideNote()" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h4>
+					提醒!
+				</h4> 
+				{{$root.systemInfo.note}}
+			</div>
+		</div>
+</div>

@@ -1,0 +1,22 @@
+<div ng-controller="navigationBarCtrl" class="top-header-nav">
+	<nav class="top-nav main-menu">
+		<ul class="top-nav">
+			<li><a ui-sref-active="active" ui-sref="show.stationery">首页</a><span></span></li>
+			<li><a ui-sref-active="active" ui-sref="show.order">订单</a><span></span></li>
+			<li><a ui-sref-active="active" ui-sref="show.adminTools">Adimn工具</a></li>
+			<li class="cart"><a class="quantity" ui-sref-active="active"
+				ui-sref="show.cart">{{$root.number}}</a></li>
+				<li class="welcome">{{$root.user.name}}, 欢迎您！</li>
+				<li class="changeUser"><input type="button" class="" value="切换用户"
+				ng-click="changeUser()"/></li>
+				<li class="defaultUser"><input type="button" class="" value="默认用户"
+				ng-click="defaultUser()"/></li>
+			<div class="clearfix"></div>
+		</ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+
+<div class="special-stationery">
+	<div class="container" ui-view></div>
+</div>
