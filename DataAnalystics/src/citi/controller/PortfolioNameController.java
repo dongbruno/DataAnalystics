@@ -32,8 +32,14 @@ public class PortfolioNameController {
 	}
 	@RequestMapping(value = "/getPortfolioName", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> getPortfolioName(@RequestParam String username){
-		List<String> result = portfolioNameServiceImpl.getPortfolioName(username);
+	public List<Map<String, List<String>>> getPortfolioName(@RequestParam String username){
+		List<Map<String, List<String>>> result = portfolioNameServiceImpl.getPortfolioName(username);
+		return result;
+	}
+	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getTickersFromPortfolio(@RequestParam String username, @RequestParam String portfolioName){
+		List<String> result = portfolioNameServiceImpl.getTickersFromPortfolio(username, portfolioName);
 		return result;
 	}
 }
