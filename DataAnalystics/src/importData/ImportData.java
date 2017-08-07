@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 
 import citi.hibernate.dao.RecordDao;
+import citi.hibernate.daoImpl.PortfolioDaoImpl;
 import citi.hibernate.daoImpl.RecordDaoImpl;
 import citi.hibernate.entity.Record;
+import citi.hibernate.util.HibernateUtil;
 import citi.service.RecordService;
 import citi.serviceImpl.RecordServiceImpl;
 
@@ -58,8 +60,12 @@ public class ImportData {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ImportData importData = new ImportData();
-		importData.traverseFolder2("F:\\Data Analytics\\Market Data\\Sample Dataset #1\\Quant Quote Market Data - Jan to Mar 2016");
+		PortfolioDaoImpl p = new PortfolioDaoImpl();
+		HibernateUtil.openSession();
+		System.out.println("result="+p.getPortfolioName("admin"));
+		HibernateUtil.closeSession();
+//		ImportData importData = new ImportData();
+//		importData.traverseFolder2("F:\\Data Analytics\\Market Data\\Sample Dataset #1\\Quant Quote Market Data - Jan to Mar 2016");
 	}
 
 }

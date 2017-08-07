@@ -2,6 +2,7 @@
     <wb-module deploy-name="DataAnalystics">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/JUnit"/>
         <property name="context-root" value="DataAnalystics"/>
         <property name="java-output-path" value="/DataAnalystics/build/classes"/>
     </wb-module>
