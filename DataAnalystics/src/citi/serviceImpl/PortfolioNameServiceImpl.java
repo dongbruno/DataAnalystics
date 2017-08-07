@@ -16,7 +16,7 @@ public class PortfolioNameServiceImpl implements PortfolioNameService {
 	}
 
 	@Override
-	public List<Map<String, List<String>>> getPortfolioName(String username) {
+	public List<String> getPortfolioName(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}
