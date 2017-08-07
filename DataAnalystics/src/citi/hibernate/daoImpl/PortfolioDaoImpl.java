@@ -35,14 +35,23 @@ public class PortfolioDaoImpl implements PortfolioDao {
 
 	@Override
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString = "select p.ticker from Portfolio p left join p.user u where u.username = ? and p.portfolioname=?";
+		List<String> result = sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).list();
+		return result;
 	}
 
 	@Override
 	public String addTickersFromPortfolio(String username, String portfolioName, String ticker) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString = "select u from User u where u.username=? ";
+		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).uniqueResult();
+		sessionHibernate.beginTransaction();
+		sessionHibernate.save(new Portfolio(user, portfolioName, ticker));
+		sessionHibernate.getTransaction().commit();
+		return "success";
 	}
 
 }
