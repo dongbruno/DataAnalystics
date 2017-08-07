@@ -22,6 +22,12 @@ public class PortfolioNameServiceImpl implements PortfolioNameService {
 	}
 
 	@Override
+	public String addTickerToPortfolio(String username, String portfolioName, String ticker) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
 		// TODO Auto-generated method stub
 		return null;

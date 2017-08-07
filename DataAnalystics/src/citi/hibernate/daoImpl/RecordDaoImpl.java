@@ -2,13 +2,12 @@ package citi.hibernate.daoImpl;
 
 
 import java.util.List;
-
 import org.hibernate.Session;
-
+import org.springframework.stereotype.Repository;
 import citi.hibernate.dao.RecordDao;
 import citi.hibernate.entity.Record;
 import citi.hibernate.util.HibernateUtil;
-
+@Repository
 public class RecordDaoImpl implements RecordDao {
 
 	@Override
@@ -16,10 +15,9 @@ public class RecordDaoImpl implements RecordDao {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSession();
 		System.out.println("session="+session);
-			session.beginTransaction();
-			session.save(record);
-			session.getTransaction().commit();
-		
+		session.beginTransaction();
+		session.save(record);
+		session.getTransaction().commit();
 	}
 
 	@Override

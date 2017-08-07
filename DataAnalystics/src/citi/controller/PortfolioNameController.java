@@ -42,4 +42,10 @@ public class PortfolioNameController {
 		List<String> result = portfolioNameServiceImpl.getTickersFromPortfolio(username, portfolioName);
 		return result;
 	}
+	@RequestMapping(value = "/addTickerToPortfolio", method = RequestMethod.GET)
+	@ResponseBody
+	public String addTickerToPortfolio(@RequestParam String username, @RequestParam String portfolioName, @RequestParam String ticker){
+		String result = portfolioNameServiceImpl.addTickerToPortfolio(username, portfolioName, ticker);
+		return result;
+	}
 }

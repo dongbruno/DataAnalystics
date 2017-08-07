@@ -6,4 +6,5 @@ public interface PortfolioNameService {
 	public String createPortfolioName(String username, String portfolioName);
 	public List<String> getPortfolioName(String username);
 	public List<String> getTickersFromPortfolio(String username, String portfolioName);
+	public String addTickerToPortfolio(String username, String portfolioName, String ticker);
 }
