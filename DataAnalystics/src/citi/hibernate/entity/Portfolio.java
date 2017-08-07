@@ -1,5 +1,5 @@
 package citi.hibernate.entity;
-// Generated Aug 7, 2017 6:09:37 PM by Hibernate Tools 5.0.6.Final
+// Generated Aug 7, 2017 7:37:13 PM by Hibernate Tools 5.0.6.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,21 +12,20 @@ public class Portfolio implements java.io.Serializable {
 	private Integer portfolioId;
 	private User user;
 	private String portfolioname;
-	private Set owns = new HashSet(0);
+	private Set stocks = new HashSet(0);
 
 	public Portfolio() {
 	}
 
-	public Portfolio(User user, String portfolioname, Set owns) {
+	public Portfolio(User user, String portfolioname, Set stocks) {
 		this.user = user;
 		this.portfolioname = portfolioname;
-		this.owns = owns;
+		this.stocks = stocks;
 	}
 	public Portfolio(User user, String portfolioname) {
 		this.user = user;
 		this.portfolioname = portfolioname;
 	}
-
 	public Integer getPortfolioId() {
 		return this.portfolioId;
 	}
@@ -51,12 +50,12 @@ public class Portfolio implements java.io.Serializable {
 		this.portfolioname = portfolioname;
 	}
 
-	public Set getOwns() {
-		return this.owns;
+	public Set getStocks() {
+		return this.stocks;
 	}
 
-	public void setOwns(Set owns) {
-		this.owns = owns;
+	public void setStocks(Set stocks) {
+		this.stocks = stocks;
 	}
 
 }

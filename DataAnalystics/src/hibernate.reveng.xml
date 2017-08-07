@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-  <table-filter match-catalog="stock" match-name="own"/>
   <table-filter match-catalog="stock" match-name="portfolio"/>
   <table-filter match-catalog="stock" match-name="record"/>
+  <table-filter match-catalog="stock" match-name="stock"/>
   <table-filter match-catalog="stock" match-name="user"/>
 </hibernate-reverse-engineering>

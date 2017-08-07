@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated Aug 7, 2017 6:09:37 PM by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="stock" dynamic-insert="false" dynamic-update="false" mutable="true" name="citi.hibernate.entity.Portfolio" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="portfolio">
         <id name="portfolioId" type="java.lang.Integer">
             <column name="portfolio_id"/>
@@ -12,11 +13,11 @@
         <property generated="never" lazy="false" name="portfolioname" optimistic-lock="true" type="string" unique="false">
             <column name="portfolioname"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="owns" optimistic-lock="true" sort="unsorted" table="own">
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="stocks" optimistic-lock="true" sort="unsorted" table="stock">
             <key on-delete="noaction">
                 <column name="portfolio_id"/>
             </key>
-            <one-to-many class="citi.hibernate.entity.Own" embed-xml="true" not-found="exception"/>
+            <one-to-many class="citi.hibernate.entity.Stock" embed-xml="true" not-found="exception"/>
         </set>
     </class>
 </hibernate-mapping>
