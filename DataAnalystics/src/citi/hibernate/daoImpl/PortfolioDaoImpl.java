@@ -28,7 +28,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		String queryString = "select u from User u where u.username=? ";
 		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).uniqueResult();
 		sessionHibernate.beginTransaction();
-		sessionHibernate.save(new Portfolio(user, portfolioName, null));
+		sessionHibernate.save(new Portfolio(user, portfolioName));
 		sessionHibernate.getTransaction().commit();
 		return "success";
 	}
