@@ -2,17 +2,14 @@ package citi.hibernate.daoImpl;
 
 import java.util.List;
 
-<<<<<<< HEAD
+
 import org.springframework.stereotype.Repository;
-
 import citi.hibernate.dao.PortfolioDao;
-@Repository
-=======
 import org.hibernate.Session;
-
 import citi.hibernate.dao.PortfolioDao;
+import citi.hibernate.entity.Portfolio;
+import citi.hibernate.entity.User;
 import citi.hibernate.util.HibernateUtil;
->>>>>>> e6075bd1e87fb212586cd7d1243485772cd052e3
 public class PortfolioDaoImpl implements PortfolioDao {
 	@Override
 	public List<String> getPortfolioName(String username) {
@@ -23,11 +20,17 @@ public class PortfolioDaoImpl implements PortfolioDao {
 
 		return result;
 	}
-
+	//need to judge the portfolioname if exist
 	@Override
-	public String createPortfolioName(String usrname, String portfolioName) {
-		// TODO Auto-generated method stub
-		return null;
+	public String createPortfolioName(String username, String portfolioName) {
+
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString = "select u from User u where u.username=? ";
+		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).uniqueResult();
+		sessionHibernate.beginTransaction();
+		sessionHibernate.save(new Portfolio(user, portfolioName, null));
+		sessionHibernate.getTransaction().commit();
+		return "success";
 	}
 
 	@Override
