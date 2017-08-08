@@ -2,8 +2,10 @@ package citi.serviceImpl;
 
 import java.util.List;
 
-import citi.service.DateTransferService;
+import org.springframework.stereotype.Service;
 
+import citi.service.DateTransferService;
+@Service
 public class DateTransferServiceImpl implements DateTransferService {
 
 	@Override
