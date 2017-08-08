@@ -28,20 +28,20 @@ public class PortfolioDaoImplTest {
 //		
 //	}
 
-	@Test
-	public void testGetTickersFromPortfolio() {
-		PortfolioDaoImpl p = new PortfolioDaoImpl();
-		HibernateUtil.openSession();
-		System.out.println("result2="+p.getTickersFromPortfolio("admin","risk"));
-		HibernateUtil.closeSession();
-	}
 //	@Test
-//	public void testAddTickersFromPortfolio() {
+//	public void testGetTickersFromPortfolio() {
 //		PortfolioDaoImpl p = new PortfolioDaoImpl();
 //		HibernateUtil.openSession();
-//		System.out.println("result="+p.addTickersFromPortfolio("admin", "risk", "a"));
+//		System.out.println("result2="+p.getTickersFromPortfolio("admin","risk"));
 //		HibernateUtil.closeSession();
 //	}
+	@Test
+	public void testAddTickersFromPortfolio() {
+		PortfolioDaoImpl p = new PortfolioDaoImpl();
+		HibernateUtil.openSession();
+		System.out.println("result="+p.addTickersFromPortfolio("admin", "haha", "d"));
+		HibernateUtil.closeSession();
+	}
 	
 
 }

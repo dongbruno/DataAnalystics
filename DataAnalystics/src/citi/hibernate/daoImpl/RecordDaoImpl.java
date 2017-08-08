@@ -30,14 +30,14 @@ public class RecordDaoImpl implements RecordDao {
 	public List<Record> getDataBetweenDate(String start, String end) {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString = "select top 10 distinct ticker from Record";
+		String queryString = "select top 10 distinct r.ticker from Record r";
 		List<String> tickers = sessionHibernate.createQuery(queryString).list();
 		List<Record> records = null;
 		for(String ticker: tickers) {
 			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			Record result = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			Record result2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, start).list();
+			Record result2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
 		    records.add(result);
 		    records.add(result2);
 		}
@@ -49,10 +49,10 @@ public class RecordDaoImpl implements RecordDao {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
 		List<Record> records = null;
-		String queryString = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-		Record result = (Record) sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, start).uniqueResult();
-		String queryString1 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-		Record result1 = (Record) sessionHibernate.createQuery(queryString1).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+		String queryString = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where (r.ticker=? and r.date =?) and r.time = '959'";
+		Record result = (Record)sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+		String queryString1 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where (r.ticker=? and r.date =?) and r.time = '959'";
+        Record result1 = (Record) sessionHibernate.createQuery(queryString1).setParameter(0, ticker).setParameter(1, end).uniqueResult();
 		records.add(result);
 		records.add(result1);
 		return records;
