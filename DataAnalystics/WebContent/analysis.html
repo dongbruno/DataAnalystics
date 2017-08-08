@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>portfolio day details</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Sean">
+  <link rel="shortcut icon" href="Images/ico.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Styles/bootstrap-table.css">
+  <link rel="stylesheet" type="text/css" href="Styles/index.css">
+  <script src="Scripts/Angular.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="Scripts/bootstrap-table.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+<table data-toggle="table" data-url="Json/test.json" data-height="450" data-pagination="true" data-align="center" >
+    <thead>
+        <tr>
+            <th data-field="ticker" data-sortable="true">ticker</th>
+            <th data-field="date" data-sortable="true">date</th>
+            <th data-field="open" data-sortable="true">open</th>
+            <th data-field="high" data-sortable="true">high</th>
+            <th data-field="low" data-sortable="true">low</th>
+            <th data-field="close" data-sortable="true">close</th>
+            <th data-field="vol" data-sortable="true">vol</th>
+        </tr>
+    </thead>
+</table>
+</body>
+</html>
+<script type="text/javascript" src="Scripts/portfolioDay.js"></script>
+<script src="Scripts/echarts.js"></script>
+<script type="text/javascript">
+ </script>

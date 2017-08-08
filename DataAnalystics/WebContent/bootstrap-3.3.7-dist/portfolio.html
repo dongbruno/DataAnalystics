@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>portfolio details</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Sean">
+  <link rel="shortcut icon" href="Images/ico.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Styles/index.css">
+  <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+  <header>
+    <span class="logoName"><em>Data Analysis Tool</em></span>
+
+    <ul>
+      <li><a href="index.html"><span class="icon-home"></span>home</a></li>
+      <li><a href="user.html"><span class="icon-home"></span> my portfolios</a></li>
+    </ul>
+  </header>
+  <div id="main">
+
+    <div class="news portfolio-news">
+      <img src="Images/timg.jpg">
+
+      <div class="portfolio-intro">
+        <h2>portfolio name</h2>
+        <h3>portfolio number</h3>
+      </div>
+    </div>
+
+    <div class="views">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ticker</th>
+            <th>date</th>
+            <th>open</th>
+            <th>high</th>
+            <th>low</th>
+            <th>close</th>
+            <th>vol</th>
+            <th>edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in users">
+            <td>{{user.ticker}}</td>
+            <td>{{user.date}}</td>
+            <td>{{user.open}}</td>
+            <td>{{user.high}}</td>
+            <td>{{user.low}}</td>
+            <td>{{user.close}}</td>
+            <td>{{user.vol}}</td>
+            <td>
+              <a href="portfolioDay.html"><button class="btn btn-default">view</button></a>              
+              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+    </div>
+
+  </div>
+
+  <footer>
+    @copyright; 2017 Sean Yi, Inc.<br>
+  </footer>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Data visualization</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="Scripts/index.js"></script>

@@ -34,6 +34,7 @@ public class PortfolioNameController {
 	@ResponseBody
 	public List<String> getPortfolioName(@RequestParam String username){
 		List<String> result = portfolioNameServiceImpl.getPortfolioName(username);
+		System.out.println("get name" +result);
 		return result;
 	}
 	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)

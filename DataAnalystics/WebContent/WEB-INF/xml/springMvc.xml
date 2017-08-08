@@ -8,8 +8,12 @@
 	<context:component-scan base-package="citi.controller" />
 	<context:component-scan base-package="citi.hibernate.entity" />
 	<!-- 静态资源 -->
-	<mvc:resources mapping="/style/**" location="/style/" />
-	<mvc:resources mapping="/js/**" location="/js/" />
-	<mvc:resources mapping="/views/**" location="/views/" />
+	<mvc:resources mapping="/Styles/**" location="/Styles/" />
+	<mvc:resources mapping="/Scripts/**" location="/Scripts/" />
+	<mvc:resources mapping="/dataTable/**" location="/dataTable/" />
+	<mvc:resources mapping="/bootstrap-3.3.7-dist/**" location="/bootstrap-3.3.7-dist/" />
+	<mvc:resources mapping="/files/**" location="/files/" />
+	<mvc:resources mapping="/Images/**" location="/Images/" />
+	
 	<mvc:resources mapping="/index.html" location="/" />
 </beans>

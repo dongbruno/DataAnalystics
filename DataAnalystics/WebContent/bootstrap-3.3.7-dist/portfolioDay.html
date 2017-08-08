@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>portfolio day details</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Sean">
+  <link rel="shortcut icon" href="Images/ico.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Styles/index.css">
+  <script src="Scripts/Angular.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="userCtrl">
+  <header>
+    <span class="logoName"><em>Data Analysis Tool</em></span>
+
+    <ul>
+      <li><a href="index.html"><span class="icon-home"></span>home</a></li>
+      <li><a href="user.html"><span class="icon-home"></span> my portfolios</a></li>
+    </ul>
+  </header>
+  <div id="main">
+
+    <div class="news portfolio-news">
+      <img src="Images/timg.jpg">
+
+      <div class="portfolio-intro">
+        <h2>ticker name</h2>
+        <h3>date</h3>
+      </div>
+    </div>
+
+    <div class="views view-chart row">
+      <div class="chart col-md-12" id="chart">
+        
+      </div>
+      <div class="col-md-12 col-table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>time</th>
+              <th>open</th>
+              <th>high</th>
+              <th>low</th>
+              <th>close</th>
+              <th>vol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in users">
+              <td>{{countIndex(user)}}</td>
+              <td>{{user.open}}</td>
+              <td>{{user.high}}</td>
+              <td>{{user.low}}</td>
+              <td>{{user.close}}</td>
+              <td>{{user.vol}}</td>
+            </tr>
+          </tbody>
+        </table> 
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    @copyright; 2017 Sean Yi, Inc.<br>
+  </footer>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Data visualization</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="Scripts/portfolioDay.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    $.get("Json/day.json").success(function(data) {
+        xAxisData = new Array(data.length);
+        seriesData = new Array(data.length);
+        for (var i = 0; i < data.length; i++) {
+            xAxisData[i] = i;
+            seriesData[i] = [parseInt(data[i].open), parseInt(data[i].close), parseInt(data[i].high), parseInt(data[i].low)];
+        }
+    });
+
+    require.config({
+        paths: {
+             echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    require(
+        [
+            'echarts',
+            'echarts/chart/k'
+        ],
+        function (ec) {
+            var myChart = ec.init(document.getElementById('chart'));
+option = {
+    title : {
+        text: '2013 Composite Index '
+    },
+    tooltip : {
+        trigger: 'axis',
+        formatter: function (params) {
+            var res = params[0].seriesName + ' ' + params[0].name;
+            res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
+            res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
+            return res;
+        }
+    },
+    legend: {
+        data:['Composite Index ']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            // mark : {show: true},
+            // dataZoom : {show: true},
+            // dataView : {show: true, readOnly: false},
+            // magicType: {show: true, type: ['line', 'bar']},
+            // restore : {show: true},
+            // saveAsImage : {show: true}
+        }
+    },
+    dataZoom : {
+        show : true,
+        realtime: true,
+        start : 50,
+        end : 100
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : true,
+            axisTick: {onGap:false},
+            splitLine: {show:false},
+            data : xAxisData
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            scale:true,
+            boundaryGap: [0.01, 0.01]
+        }
+    ],
+    series : [
+        {
+            name:'上证指数',
+            type:'k',
+            data: seriesData
+        }
+    ]
+};
+                    
+            myChart.setOption(option);
+        }
+    );
+</script>

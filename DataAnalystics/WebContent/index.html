@@ -1,20 +1,104 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>BookStationerySystem</title>
-<link href="./js/lib/bootstrap.min.css" rel="stylesheet">
-<link href="./style/css/style.css" rel="stylesheet" type = "text/css">
-<link href="./js/lib/bootstrap.css" rel="stylesheet">
+	<title>Data Analysis</title>
+	<meta charset="utf-8">
+	<meta name="author" content="Sean">
+  <link rel="shortcut icon" href="Images/ico.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="dataTable/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="dataTable/extensions/Buttons/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="Styles/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" type="text/css" href="Styles/index.css">
+  <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="dataTable/js/jquery.dataTables.min.js"></script>
+  <script src="dataTable/extensions/Buttons/js/dataTables.buttons.min.js"></script>
 </head>
-<body>
-	<!-- 路由界面 -->
-	<div class="container" ui-view></div>
-	<!-- 使用require加载js -->
-	<script data-main="js/main.js" src="js/lib/requirejs/require.js"></script>
-	<!-- 	<script type="text/javascript" src="./lib/jquery.min.js"></script> -->
-	<!-- 	<script type="text/javascript" src="./lib/bootstrap.min.js"></script> -->
+<body ng-app="myApp" ng-controller="userCtrl">
+	<header>
+    <span class="logoName"><em>Data Analysis Tool</em></span>
+
+    <ul>
+      <li><a href=""><span class="icon-home"></span>home</a></li>
+      <li><a href="user.html"><span class="icon-home"></span> my portfolios</a></li>
+    </ul>
+  </header>
+  <div id="main">
+
+    <div class="news">
+      <h1><em>Data Analysis Tool</em></h1>
+      <p>Wuxia literally means "martial hero". It is broad genre of Chinese fiction describing adventures of martial artists. Young male protagonist undertakes several trials and tribulations and learns several forms of martial arts from various fighters. At the end of the story he becomes a powerful fighter whom few can equal.</p>
+    </div>
+
+    <div class="views">
+      <div class="row search-group">
+        <label>
+          stock: <input type="text" name="stock" id="stock">
+        </label>
+
+        <label class="label-date">
+          from: <input type="text" id="startDate">
+        </label>
+
+        <label class="label-date">
+          to: <input type="text" id="endDate">
+        </label>
+
+        <label>
+          <input type="button" class="btn btn-lg btn-default" name="search" value="search" disabled="disabled" id="search">
+        </label>
+      </div>
+      <table id="default_stocks" class="display">
+          <thead>
+              <tr>
+                  <th>ticker</th>
+                  <th>date</th>
+                  <th>open</th>
+                  <th>high</th>
+                  <th>low</th>
+                  <th>close</th>
+                  <th>vol</th>
+                  <th id="edit">edit</th>
+              </tr>
+          </thead>
+          <tbody></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    @copyright; 2017 Sean Yi, Inc.<br>
+  </footer>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">my portfolio list</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="portfolio-list">
+                <li id="create">create new: <input type="text" name="portName" id="portName"><div>+</div></li>
+                <li>first</li>
+                <li>second</li>
+                <li>third</li>
+                <li>fourth</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                <button type="button" class="btn btn-primary">ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 </body>
 </html>
+<script type="text/javascript" src="Scripts/laydate.dev.js"></script>
+<script type="text/javascript" src="Scripts/index.js"></script>
+
