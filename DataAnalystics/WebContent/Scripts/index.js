@@ -116,8 +116,11 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
     })
   }
 
+  $scope.conutIndex = function(portfolio) {
+    return $scope.portfolios.indexOf(portfolio);
+  }
   $scope.addTicker = function($event) {
-    //console.log($event.target.next());
+    console.log($scope.choosedPort);
   }
 
 })
