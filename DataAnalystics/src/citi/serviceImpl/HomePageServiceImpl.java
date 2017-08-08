@@ -29,8 +29,9 @@ public class HomePageServiceImpl implements HomePageService {
 		// TODO Auto-generated method stub
 		String start = DateTransferServiceImpl.toListFromDate(fromDate).get(0);
 		String end = DateTransferServiceImpl.toListFromDate(toDate).get(0);
-		List<Record> records = recordDaoImpl.searchDataBetweenDate(start, end,
-				ticker);
+		HibernateUtil.openSession();
+		List<Record> records = recordDaoImpl.searchDataBetweenDate(start, end,ticker);
+		HibernateUtil.closeSession();
 		int i = 0;
 		Record recordStart = null;
 		Record recordEnd = null;
@@ -68,10 +69,10 @@ public class HomePageServiceImpl implements HomePageService {
 		// TODO Auto-generated method stub
 		String start = DateTransferServiceImpl.toListFromDate(fromDate).get(0);
 		String end = DateTransferServiceImpl.toListFromDate(toDate).get(0);
+		System.out.println(start+"--"+end);
 		HibernateUtil.openSession();
 		List<Record> records = recordDaoImpl.getDataBetweenDate(start, end);
 		HibernateUtil.closeSession();
-		
 		int i = 0;
 		Record recordStart = null;
 		Record recordEnd = null;
