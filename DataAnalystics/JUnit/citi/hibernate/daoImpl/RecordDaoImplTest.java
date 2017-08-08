@@ -18,21 +18,22 @@ public class RecordDaoImplTest {
 //		fail("Not yet implemented");
 //	}
 
-//	@Test
-//	public void testGetDataBetweenDate() {
-//		RecordDaoImpl r = new RecordDaoImpl();
-//		HibernateUtil.openSession();
-//		System.out.println("result2="+ r.getDataBetweenDate("20160104", "20160105"));
-//		HibernateUtil.closeSession();
-//	}
-
 	@Test
-	public void testSearchDataBetweenDate() {
+	public void testGetDataBetweenDate() {
 		RecordDaoImpl r = new RecordDaoImpl();
 		HibernateUtil.openSession();
-		System.out.println("result2="+ r.searchDataBetweenDate("20160111", "20160120", "a"));
-		HibernateUtil.closeSession();	
+		System.out.println("result2="+ r.getDataBetweenDate("20160104", "20160105"));
+		HibernateUtil.closeSession();
 	}
+
+//	@Test
+//	public void testSearchDataBetweenDate() {
+//		System.out.println("begin:--------------");
+//		RecordDaoImpl r = new RecordDaoImpl();
+//		HibernateUtil.openSession();
+//		System.out.println("result2="+ r.searchDataBetweenDate("20160104", "20160111", "a"));
+//		HibernateUtil.closeSession();	
+//	}
 //
 //	@Test
 //	public void testGetDataBetweenDateByDay() {
