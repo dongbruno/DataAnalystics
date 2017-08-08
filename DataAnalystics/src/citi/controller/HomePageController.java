@@ -26,9 +26,9 @@ public class HomePageController {
 		List<HashMap<String, Object>> result = homePageServiceImpl.getDataBetweenDate(fromDate, toDate);
 		return  result;
 	}
-	@RequestMapping(value = "/SearchDataBetweenDate/{fromDate}/{toDate}/ticker", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchDataBetweenDate/{fromDate}/{toDate}/{ticker}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<HashMap<String, Object>> getDataBetweenDate(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
+	public List<HashMap<String, Object>> searchDataBetweenDate(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
 			throws IOException{
 		List<HashMap<String,Object>> result = homePageServiceImpl.searchDataBetweenDate(fromDate, toDate,ticker);
 		return  result;

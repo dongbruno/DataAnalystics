@@ -43,9 +43,27 @@ public class PortfolioNameServiceImpl implements PortfolioNameService {
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
 		// TODO Auto-generated method stub
 		HibernateUtil.openSession();
-		List<String> tickersFormPortfolio = portfolioDaoImpl.getTickersFromPortfolio(username, portfolioName);
+		List<String> tickersFromPortfolio = portfolioDaoImpl.getTickersFromPortfolio(username, portfolioName);
 		HibernateUtil.closeSession();
-		return tickersFormPortfolio;
+		return tickersFromPortfolio;
+	}
+
+	@Override
+	public String deletePortfolioName(String username, String portfolioName) {
+		// TODO Auto-generated method stub
+		HibernateUtil.openSession();
+		portfolioDaoImpl.deletePortfolioName(username, portfolioName);
+		HibernateUtil.closeSession();
+		return "success";
+	}
+
+	@Override
+	public String deleteTickerFromPortfolio(String username, String portfolioName, String ticker) {
+		// TODO Auto-generated method stub
+		HibernateUtil.openSession();
+		portfolioDaoImpl.deleteTickerFromPortfolio(username, portfolioName, ticker);
+		HibernateUtil.closeSession();
+		return "success";
 	}
 
 }
