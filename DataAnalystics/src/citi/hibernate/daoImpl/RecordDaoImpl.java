@@ -45,9 +45,17 @@ public class RecordDaoImpl implements RecordDao {
 	}
 
 	@Override
-	public List<Object> searchDataBetweenDate(String start, String end, String ticker) {
+	public List<Record> searchDataBetweenDate(String start, String end, String ticker) {
 		// TODO Auto-generated method stub
-		return null;
+		Session sessionHibernate = HibernateUtil.getSession();
+		List<Record> records = null;
+		String queryString = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+		Record result = (Record) sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+		String queryString1 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+		Record result1 = (Record) sessionHibernate.createQuery(queryString1).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+		records.add(result);
+		records.add(result1);
+		return records;
 	}
 
 	@Override
