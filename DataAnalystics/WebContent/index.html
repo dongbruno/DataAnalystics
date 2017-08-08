@@ -55,12 +55,12 @@
           <thead>
               <tr>
                   <th>ticker</th>
-                  <th>date</th>
                   <th>open</th>
-                  <th>high</th>
-                  <th>low</th>
                   <th>close</th>
-                  <th>vol</th>
+                  <th>change</th>
+                  <th>%change</th>
+<!--                   <th>close</th>
+                  <th>vol</th> -->
                   <th id="edit">edit</th>
               </tr>
           </thead>
@@ -89,7 +89,7 @@
               <ul class="portfolio-list">
                 <li ng-repeat="portfolio in portfolios">
                   <input type="radio" name="portName" ng-model="choosedPort" ng-value={{$index}}>
-                  <span>{{portfolio}}<span>
+                  <p ng-value="{{portfolio}}">{{portfolio}}</p>
                 </li>
               </ul>
             </div>

@@ -44,17 +44,17 @@ $('#stock').on('blur', function() {
 $(document).ready( function () {
     var table = $('#default_stocks').DataTable({
       "ajax": {
-         //"url": "Json/test.json",
+          "url": "getDataBetweenDate/2016-01-04/2016-01-13",
           "dataSrc": ""
        },
       "columnDefs":[
       { //自定义组件
-          targets: 7,
+          targets: 5,
           render: function (data, type, row, meta) {
               return '<a type = "button" href="portfolioDay.html" class="btn btn-default">view</a><button class="btn btn-default" data-toggle="modal" data-target="#myModal">add</button>';
           }
       },
-          { "orderable": false, "targets": 7 },
+          { "orderable": false, "targets": 5 },
       ],
       "oLanguage": {
         "oPaginate": {
@@ -66,14 +66,19 @@ $(document).ready( function () {
       },
       "columns": [   
          {"data" : "ticker"},  
-         {"data" : "date"},  
-         {"data" : "open"},
-         {"data" : "high"},
-         {"data" : "low"},  
-         {"data" : "close"},  
-         {"data" : "vol"}   
+         {"data" : "open"},  
+         {"data" : "close"},
+         {"data" : "change"},
+         {"data" : "changepercent"},   
          ],
     });
+
+    //添加新的portfolio 名字
+  $('#search').on('click', function() {
+      var searchUrl = 'searchDataBetweenDate/'+$('#startDate').val()+'/'+$('#endDate').val()+'/'+$('#stock').val();
+      var tableUrl = table.ajax.url(searchUrl);
+      tableUrl.load();
+  })
 
   //添加新的portfolio 名字
   $('#add').on('click', function() {
