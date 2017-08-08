@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import citi.hibernate.dao.RecordDao;
 import citi.hibernate.entity.Record;
 import citi.hibernate.util.HibernateUtil;
+import citi.service.DateTransferService;
 @Repository
 public class RecordDaoImpl implements RecordDao {
-
+@Resource DateTransferService dateTransferServiceImpl;
 	@Override
 	public void insertRecord(Record record) {
 		// TODO Auto-generated method stub
@@ -20,13 +21,20 @@ public class RecordDaoImpl implements RecordDao {
 		session.save(record);
 		session.getTransaction().commit();
 	}
-
 	@Override
-	public List<Object> getDataBetweenDateByMinute(String fromDate, String toDate, String ticker) {
+	public List<Record> getDataBetweenDateByMinute(String fromDate, String toDate, String ticker) {
 		// TODO Auto-generated method stub
-		return null;
+	    List<String> start = dateTransferServiceImpl.toListFromDate(fromDate);
+	    String startDate = start.get(0);
+	    String startTime = start.get(1);
+	    List<String> end = dateTransferServiceImpl.toListFromDate(toDate);
+	    String endDate = end.get(0);
+	    String endTime = end.get(1);
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time>=? and r.time<=?";
+		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startTime).setParameter(4, endTime).list();
+		return records;
 	}
-
 	@Override
 	public List<Record> getDataBetweenDate(String start, String end) {
 		// TODO Auto-generated method stub
@@ -51,11 +59,9 @@ public class RecordDaoImpl implements RecordDao {
 		    	records.add(result);
 			    records.add(result2);
 		    }
-			
 		}
 		return records;
 	}
-
 	@Override
 	public List<Record> searchDataBetweenDate(String start, String end, String ticker) {
 		// TODO Auto-generated method stub
@@ -83,16 +89,12 @@ public class RecordDaoImpl implements RecordDao {
 		}
 		return records;
 	}
-
 	@Override
-	public List<Object> getDataBetweenDateByDay(int start, int end, String ticker) {
+	public List<Record> getDataBetweenDateByDay(String start, String end, String ticker) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time = '1559'";
+		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setParameter(2, end).list();
+		return records;
 	}
-
-	
-
-	
-
 }
