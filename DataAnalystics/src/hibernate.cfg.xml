@@ -12,6 +12,7 @@
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping resource="citi/hibernate/entity/Record.hbm.xml"/>
+        <mapping resource="citi/hibernate/entity/Stock.hbm.xml"/>
         <mapping resource="citi/hibernate/entity/User.hbm.xml"/>
         <mapping resource="citi/hibernate/entity/Portfolio.hbm.xml"/>
     </session-factory>
