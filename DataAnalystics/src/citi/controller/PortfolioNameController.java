@@ -50,4 +50,18 @@ public class PortfolioNameController {
 		String result = portfolioNameServiceImpl.addTickerToPortfolio(username, portfolioName, ticker);
 		return result;
 	}
+	@RequestMapping(value = "/deletePortfolioName", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> deletePortfolioName(@RequestParam String username, @RequestParam String portfolioName){
+		String result = portfolioNameServiceImpl.deletePortfolioName(username, portfolioName);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", result);
+		return map;
+	}
+	@RequestMapping(value = "/deleteTickerFromPortfolio", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteTickerFromPortfolio(@RequestParam String username, @RequestParam String portfolioName, @RequestParam String ticker){
+		String result = portfolioNameServiceImpl.deleteTickerFromPortfolio(username, portfolioName, ticker);
+		return result;
+	}
 }

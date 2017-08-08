@@ -54,5 +54,15 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		sessionHibernate.getTransaction().commit();
 		return "success";
 	}
+	@Override
+	public void deleteTickerFromPortfolio(String username, String portfolioName, String ticker) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deletePortfolioName(String username, String portfolioName) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

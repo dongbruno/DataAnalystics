@@ -65,10 +65,18 @@ public class RecordDaoImpl implements RecordDao {
 		List<Record> records = new ArrayList<>();
 		for(String t: tickers) {
 			String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			Record result = (Record) (sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).setMaxResults(1).list()).get(0);
+			List<Record> list1 =  sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).list();
+			Record result = null;
+			if(!list1.isEmpty()) {
+				result = list1.get(0);
+			}
 			String queryString3 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			Record result2 = (Record) (sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).setMaxResults(1).list()).get(0);
-		    if(result!=null && result2!=null) {
+			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).list();
+			Record result2 = null;
+			if(!list2.isEmpty()) {
+				result2 = list2.get(0);
+				}
+			if(result!=null && result2!=null) {
 		    	records.add(result);
 			    records.add(result2);
 		    }
