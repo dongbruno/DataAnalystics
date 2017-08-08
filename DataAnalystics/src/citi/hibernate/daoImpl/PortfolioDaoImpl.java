@@ -35,12 +35,14 @@ public class PortfolioDaoImpl implements PortfolioDao {
 
 	@Override
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
+
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
 		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
 		String queryString2 = "select s.stockTicker from Stock s left join s.portfolio p where p.portfolioId=?";
 		List<String> result = sessionHibernate.createQuery(queryString2).setParameter(0, pId).list();
 		return result;
+
 	}
 
 	@Override
