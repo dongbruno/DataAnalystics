@@ -34,8 +34,16 @@ public class PortfolioNameController {
 	}
 	@RequestMapping(value = "/getPortfolioName", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> getPortfolioName(@RequestParam String username){
-		List<String> result = portfolioNameServiceImpl.getPortfolioName(username);
+	public List<Map<String, String>> getPortfolioName(@RequestParam String username){
+		List<Map<String, String>> result = null;
+		List<String> portfolios = portfolioNameServiceImpl.getPortfolioName(username);
+		for(String str: portfolios) {
+			Map<String, String> m = null;
+			List<String> tickers = portfolioNameServiceImpl.getTickersFromPortfolio(username, str);
+			m.put("portfolioname", str);
+			m.put("quantity", ""+tickers.size());
+			result.add(m);
+		}
 		return result;
 	}
 	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
