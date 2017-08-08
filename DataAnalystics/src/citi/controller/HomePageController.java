@@ -26,7 +26,6 @@ public class HomePageController {
 	public List<Object> getDataBetweenDate(@PathVariable String fromDate, @PathVariable String toDate) 
 			throws IOException{
 		List<Object> result = homePageServiceImpl.getDataBetweenDate(fromDate, toDate);
-		System.out.println("hello");
 		return  result;
 	}
 	@RequestMapping(value = "/SearchDataBetweenDate/{fromDate}/{toDate}/ticker", method = RequestMethod.GET)

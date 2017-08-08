@@ -44,7 +44,7 @@ $('#stock').on('blur', function() {
 $(document).ready( function () {
     var table = $('#default_stocks').DataTable({
       "ajax": {
-         "url": "Json/test.json",
+         //"url": "Json/test.json",
           "dataSrc": ""
        },
       "columnDefs":[
@@ -75,26 +75,49 @@ $(document).ready( function () {
          ],
     });
 
-
-  $('#search').on('click', function() {
-    var tableUrl = table.ajax.url("Json/day.json");
-    tableUrl.load();
-  })  
-
   //添加新的portfolio 名字
-  $('#create div').on('click', function() {
-    // console.log($('#create input').val());
-    $.ajax({
-	   	type: 'get', 
-	    url: 'localhost:8080/getDataBetweenDate/2016-01-02/2016-02-03' ,  
-	//     data: {} , 
-	    success: function(data) {
-
-		}
-    })
+  $('#add').on('click', function() {
+    $('#myModal').modal('show');
   })
 
 
-
-  
 });
+
+
+//angular 部分
+
+angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
+
+  $scope.showPortfolio = function() {
+    $http.get("/getPortfolioName?username=admin").success(function(data) {
+      $scope.portfolios = data;
+    });
+  }
+
+  $scope.createPortfolio = function() {
+
+    //先检测是否有重复的portfolio name
+    for(var i = 0; i < $scope.portfolios.length; i++) {
+      if ($scope.portName == $scope.portfolios[i]) {
+        alert("repeat portfolio name");
+        return;
+      }
+    }
+    $http({
+      method: 'GET',
+      url:'/createPortfolioName',
+      params: {
+        portfolioName: $scope.portName,
+        username: "admin"
+      }
+    }).then(function successCallback(response) {
+      $scope.portfolios.push($scope.portName);
+      $scope.portName = '';
+    })
+  }
+
+  $scope.addTicker = function($event) {
+    //console.log($event.target.next());
+  }
+
+})

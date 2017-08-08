@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="dataTable/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="dataTable/extensions/Buttons/css/buttons.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="Styles/bootstrap-datetimepicker.css">
+  <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="Styles/index.css">
   <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -25,6 +26,7 @@
     </ul>
   </header>
   <div id="main">
+            <button class="btn btn-default" ng-click="showPortfolio()" id="add">add</button>';
 
     <div class="news">
       <h1><em>Data Analysis Tool</em></h1>
@@ -81,17 +83,16 @@
                 <h4 class="modal-title" id="myModalLabel">my portfolio list</h4>
             </div>
             <div class="modal-body">
+              <ul class="portfolio-title">
+                <li id="create">create new: <input type="text" name="portName" id="portName" ng-model="portName"><div ng-click="createPortfolio()">+</div></li>
+              </ul>
               <ul class="portfolio-list">
-                <li id="create">create new: <input type="text" name="portName" id="portName"><div>+</div></li>
-                <li>first</li>
-                <li>second</li>
-                <li>third</li>
-                <li>fourth</li>
+                <li ng-repeat="portfolio in portfolios"><input type="radio" name="portName">{{portfolio}}</li>
               </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-                <button type="button" class="btn btn-primary">ok</button>
+                <button type="button" ng-click="choosePort($event)" class="btn btn-primary">ok</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

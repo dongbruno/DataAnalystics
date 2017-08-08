@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import citi.hibernate.dao.PortfolioDao;
 import org.hibernate.Session;
-import citi.hibernate.entity.Stock;
 import citi.hibernate.entity.Portfolio;
+import citi.hibernate.entity.Stock;
 import citi.hibernate.entity.User;
 import citi.hibernate.util.HibernateUtil;
 @Repository

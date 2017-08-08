@@ -155,19 +155,27 @@ footer {
 .modal-footer {
 	text-align: center;
 }
-.portfolio-list {
+.portfolio-title, .portfolio-list {
 	list-style: none;
 }
-.portfolio-list li {
+
+.portfolio-title li, .portfolio-list li {
 	font-size: 20px;
 	padding: 4px 10px;
 	border-bottom: 1px solid lightgray;
+}
+input[type="radio"] {
+	margin-right: 5px;
 	cursor: pointer;
+}
+.choosed {
+	background-color: lightgray;
 }
 #create div {
 	display: inline;
 	border: 1px solid lightgray;
 	padding: 2px 7px;
 	border-radius: 5px;
-	margin: 6px
+	margin: 6px;
+	cursor: pointer;
 }

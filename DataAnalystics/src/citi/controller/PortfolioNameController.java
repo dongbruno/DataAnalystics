@@ -26,15 +26,16 @@ public class PortfolioNameController {
 	private static final Log logger = LogFactory.getLog( HomePageController.class);
 	@RequestMapping(value = "/createPortfolioName", method = RequestMethod.GET)
 	@ResponseBody
-	public String createPortfolioName(@RequestParam String username, @RequestParam String portfolioName){
+	public Map<String, String> createPortfolioName(@RequestParam String username, @RequestParam String portfolioName){
 		String result = portfolioNameServiceImpl.createPortfolioName(username, portfolioName);
-		return result;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", result);
+		return map;
 	}
 	@RequestMapping(value = "/getPortfolioName", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> getPortfolioName(@RequestParam String username){
 		List<String> result = portfolioNameServiceImpl.getPortfolioName(username);
-		System.out.println("get name" +result);
 		return result;
 	}
 	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
