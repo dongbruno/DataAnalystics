@@ -97,7 +97,6 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   $scope.choosedStock = "ss";
   $scope.showPortfolio = function() {
     $http.get("/getPortfolioName?username=admin").success(function(data) {
-      console.log(data);
       $scope.portfolios = data;
     });
   }
@@ -127,7 +126,28 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   $scope.conutIndex = function(portfolio) {
     return $scope.portfolios.indexOf(portfolio);
   }
+
+  $scope.checkRepeat = function() {
+    $http({
+      method: 'GET',
+      url:'/getRecordsFromPortfolio',
+      params: {
+        username: "admin",
+        portfolioName: $scope.choosedPort,
+      }
+    }).success(function(data) {
+        for (var i = 0; i < data.length; i++) {
+          if (choosedStock == data[i].ticker) {
+            alert('repeat ticker in this portfolio');
+            return true;
+          }
+        }
+        return false;
+    })
+  }
+
   $scope.addTicker = function() {
+    if($scope.checkRepeat()) return;
     $http({
       method: 'GET',
       url:'/addTickerToPortfolio',

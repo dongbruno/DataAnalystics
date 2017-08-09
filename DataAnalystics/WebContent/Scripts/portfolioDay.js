@@ -11,7 +11,7 @@ var localTiker = GetQueryString('ticker');
 
 $('#tName').html(localTiker);
 $.ajax({
-    url: 'getDataBetweenDateByMinute/2016-01-04%2009:30/2016-01-11%2009:30/a',
+    url: 'getDataBetweenDateByMinute/2016-01-04%2009:30/2016-01-11%2009:30/abbv',
     // data: {
     //     fromDate: '2016-01-04',
     //     toDate: '2016-03-05',
