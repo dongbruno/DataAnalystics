@@ -87,10 +87,7 @@ $(document).ready( function () {
       tableUrl.load();
   })
 
-  $("#default_stocks").delegate(".add","click",function(){
-    $("#myModal").modal('show');
-    choosedStock = "hhhhh";
-  });
+
 
 });
 
@@ -98,7 +95,7 @@ $(document).ready( function () {
 //angular 部分
 
 angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
-  
+  $scope.choosedStock = "ss";
   $scope.showPortfolio = function() {
     $http.get("/getPortfolioName?username=admin").success(function(data) {
       $scope.portfolios = data;
@@ -132,7 +129,31 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   }
   $scope.addTicker = function() {
     console.log($scope.choosedPortId + choosedStock);
+
+    $http({
+      method: 'GET',
+      url:'/addTickerToPortfolio',
+      params: {
+        username: "admin",
+        portfolioName: $scope.choosedPortId,
+        ticker: choosedStock
+      }
+    }).then(function successCallback(response) {
+        alert("add suceessfully");
+    })
   }
 
+  $scope.$watch($scope.choosedStock, function(newVal, oldVal) {  
+               
+  }); 
+
+
+  $("#default_stocks").delegate(".add","click",function(){
+    $("#myModal").modal('show');
+    $scope.showPortfolio()
+    choosedStock = $(this).parents('tr').find('td:first').html();
+  });
+
 })
+
 

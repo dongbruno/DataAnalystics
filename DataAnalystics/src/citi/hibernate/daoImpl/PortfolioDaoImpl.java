@@ -12,17 +12,14 @@ import citi.hibernate.util.HibernateUtil;
 public class PortfolioDaoImpl implements PortfolioDao {
 	@Override
 	public List<String> getPortfolioName(String username) {
-
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioname from Portfolio p left join p.user u where u.username = ?";
 		List<String> result = sessionHibernate.createQuery(queryString).setParameter(0, username).list();
-
 		return result;
 	}
 	//need to judge the portfolioname if exist
 	@Override
 	public String createPortfolioName(String username, String portfolioName) {
-
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select u from User u where u.username=? ";
 		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).uniqueResult();
@@ -31,19 +28,15 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		sessionHibernate.getTransaction().commit();
 		return "success";
 	}
-
 	@Override
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
-
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
 		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
 		String queryString2 = "select s.stockTicker from Stock s left join s.portfolio p where p.portfolioId=?";
 		List<String> result = sessionHibernate.createQuery(queryString2).setParameter(0, pId).list();
 		return result;
-
 	}
-
 	@Override
 	public String addTickersFromPortfolio(String username, String portfolioName, String ticker) {
 		Session sessionHibernate = HibernateUtil.getSession();
@@ -57,12 +50,21 @@ public class PortfolioDaoImpl implements PortfolioDao {
 	@Override
 	public void deleteTickerFromPortfolio(String username, String portfolioName, String ticker) {
 		// TODO Auto-generated method stub
-		
+		Session sessionHibernate = HibernateUtil.getSession();
+		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
+		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
+		sessionHibernate.beginTransaction();
+		String hql = "delete from Stock s left join s.portfolio p where p.portfolioId=? and s.stockTicker=?" ;     
+        sessionHibernate.createQuery(hql).setParameter(0, pId).setParameter(1, ticker).executeUpdate() ;     
+        sessionHibernate.getTransaction().commit();
 	}
 	@Override
 	public void deletePortfolioName(String username, String portfolioName) {
 		// TODO Auto-generated method stub
-		
+		Session sessionHibernate = HibernateUtil.getSession();
+		sessionHibernate.beginTransaction();
+		String hql = "delete from Portfolio p left join p.user u where u.username=? and p.portfolioname=?" ;     
+        sessionHibernate.createQuery(hql).setParameter(0, username).setParameter(1, portfolioName).executeUpdate() ;     
+        sessionHibernate.getTransaction().commit();
 	}
-
 }

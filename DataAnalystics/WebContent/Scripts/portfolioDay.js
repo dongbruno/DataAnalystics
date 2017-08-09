@@ -1,4 +1,4 @@
-angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
+/*angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
 	console.log(1)
 	$http.get("Json/day.json").success(function(data) {
 		$scope.users = data;
@@ -9,4 +9,4 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
 	}
 
 
-})
+})*/

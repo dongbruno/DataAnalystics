@@ -22,7 +22,6 @@ public class HomePageServiceImpl implements HomePageService {
 	DateTransferService DateTransferServiceImpl;
 	@Resource
 	RecordDao recordDaoImpl;
-
 	@Override
 	public ArrayList<HashMap<String, Object>> searchDataBetweenDate(
 			String fromDate, String toDate, String ticker) {

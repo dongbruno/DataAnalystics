@@ -22,14 +22,12 @@ public class DateTransferServiceImpl implements DateTransferService {
 			} else {
 				time = DBtime.substring(0, 2) + ":" + DBtime.substring(2);
 			}
-			
 			dateAll = date + " " + time;
 		} else {
 			dateAll = date;
 		}
 		return dateAll;
 	}
-
 	@SuppressWarnings("null")
 	@Override
 	public List<String> toListFromDate(String date) {
@@ -52,12 +50,9 @@ public class DateTransferServiceImpl implements DateTransferService {
 			adate = dmy[0] + dmy[1] + dmy[2];
 			atime = "0";
 		}
-		
 		ArrayList<String> DBdate = new ArrayList<String>();
 		DBdate.add(adate);
 		DBdate.add(atime);
 		return DBdate;
-
 	}
-
 }

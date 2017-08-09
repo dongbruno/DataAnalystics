@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import citi.hibernate.entity.Record;
 import citi.service.KLineChartService;
 @Controller
 public class KLineChartController {
@@ -15,16 +17,16 @@ public class KLineChartController {
 	KLineChartService kLineChartServiceImpl;
 	@RequestMapping(value = "/getDataBetweenDateByDay/{fromDate}/{toDate}/{ticker}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Object> getDataBetweenDateByDay(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
+	public List<Record> getDataBetweenDateByDay(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
 			throws IOException{
-		List<Object> result = kLineChartServiceImpl.getDataBetweenDateByDay(fromDate, toDate, ticker);
+		List<Record> result = kLineChartServiceImpl.getDataBetweenDateByDay(fromDate, toDate, ticker);
 		return  result;
 	}
 	@RequestMapping(value = "/getDataBetweenDateByMinute/{fromDate}/{toDate}/{ticker}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Object> getDataBetweenDateByMinute(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
+	public List<Record> getDataBetweenDateByMinute(@PathVariable String fromDate, @PathVariable String toDate, @PathVariable String ticker) 
 			throws IOException{
-		List<Object> result = kLineChartServiceImpl.getDataBetweenDateByMinute(fromDate, toDate, ticker);
+		List<Record> result = kLineChartServiceImpl.getDataBetweenDateByMinute(fromDate, toDate, ticker);
 		return  result;
 	}
 }

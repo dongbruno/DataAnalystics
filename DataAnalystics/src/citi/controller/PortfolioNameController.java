@@ -32,11 +32,21 @@ public class PortfolioNameController {
 		map.put("result", result);
 		return map;
 	}
+	@SuppressWarnings("null")
 	@RequestMapping(value = "/getPortfolioName", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> getPortfolioName(@RequestParam String username){
-		List<String> result = portfolioNameServiceImpl.getPortfolioName(username);
-		return result;
+		List<Map<String, String>> result = null;
+		List<String> portfolios = portfolioNameServiceImpl.getPortfolioName(username);
+//		for(String str: portfolios) {
+//			Map<String, String> m = new HashMap<>();
+//			List<String> tickers = portfolioNameServiceImpl.getTickersFromPortfolio(username, str);
+//			m.put("portfolioname", str);
+//			String quantity = ""+tickers.size();
+//			m.put("quantity", quantity);
+//			result.add(m);
+//		}
+		return portfolios;
 	}
 	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
 	@ResponseBody

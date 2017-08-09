@@ -13,7 +13,7 @@
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="Scripts/bootstrap-table.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="userCtrl">
+<body >
   <header>
     <span class="logoName"><em>Data Analysis Tool</em></span>
 
@@ -37,7 +37,7 @@
       <div class="chart col-md-12" id="chart">
         
       </div>
-      <div class="col-md-12 col-table">
+<!--       <div class="col-md-12 col-table">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -60,7 +60,7 @@
             </tr>
           </tbody>
         </table> 
-      </div>
+      </div> -->
 
     </div>
 
@@ -91,15 +91,40 @@
 <script type="text/javascript" src="Scripts/portfolioDay.js"></script>
 <script src="Scripts/echarts.js"></script>
 <script type="text/javascript">
- var myChart = echarts.init(document.getElementById('chart'));
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+var localFromDate = GetQueryString('fromDate');
+var localtoDate = GetQueryString('toDate');
+var localTiker = GetQueryString('ticker');
+
+$.ajax({
+    url: 'getDataBetweenDateByDay/2016-01-04/2016-03-05/a',
+    // data: {
+    //     fromDate: '2016-01-04',
+    //     toDate: '2016-03-05',
+    //     ticker: 'a'
+    // },
+    success: function(data) {
+        console.log(data)
+    }
+})
+
+var myChart = echarts.init(document.getElementById('chart'));
 function splitData(rawData) {
     var categoryData = [];
     var values = [];
     var volumes = [];
     for (var i = 0; i < rawData.length; i++) {
-        categoryData.push(rawData[i].splice(0, 1)[0]);
-        values.push(rawData[i]);
-        volumes.push([i, rawData[i][4], rawData[i][0] > rawData[i][1] ? 1 : -1]);
+        categoryData.push(rawData[i].date);
+        var temp = [rawData[i].open, rawData[i].close, rawData[i].low, rawData[i].high];
+        values.push(temp);
+        volumes.push([i, rawData[i].volume, rawData[i].open > rawData[i].close ? 1 : -1]);
+        // volumes.push([rawData[i].volume]);
     }
 
     return {
@@ -125,7 +150,7 @@ function calculateMA(dayCount, data) {
     return result;
 }
 
-$.get('Json/echartTest.json', function (rawData) {
+$.get('getDataBetweenDateByDay/2016-01-04/2016-03-24/abbv', function (rawData) {
 
     var data = splitData(rawData);
 
