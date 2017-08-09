@@ -67,5 +67,7 @@ public class ImportData {
 		ImportData importData = new ImportData();
 		importData.traverseFolder2("C:\\Users\\Bruno\\Desktop\\Quant Quote Market Data - Jan to Mar 2016");
 	}
+	
+	
 
 }
