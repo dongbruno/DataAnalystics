@@ -1,4 +1,5 @@
 package citi.hibernate.daoImpl;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,26 +40,28 @@ public class RecordDaoImpl implements RecordDao {
 	public List<Record> getDataBetweenDate(String start, String end) {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString = "select distinct r.ticker from Record r";
-		List<String> tickers = sessionHibernate.createQuery(queryString).setFirstResult(0).setMaxResults(10).list();
+//		String queryString = "select distinct r.ticker from Record r";
+//		List<String> tickers = sessionHibernate.createQuery(queryString).setFirstResult(0).setMaxResults(10).list();
 		List<Record> records = new ArrayList<>();
+		String[] tickers = {"abbv", "amzn","antm","apol","avgo","bbby","bby","biib","bxlt"};
+		Record record1=null;
+		Record record2=null;
 		for(String ticker: tickers) {
 			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list1 = sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
-			Record result = null;
-			if(!list1.isEmpty()) {
-				result = list1.get(0);
+			record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+			while(record1==null) {
+				start = dateTransferServiceImpl.turnLastDay(start);
+				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
 			}
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
-			Record result2 = null;
-			if(!list2.isEmpty()) {
-				result2 = list2.get(0);
-				}
-		    if(result!=null && result2!=null) {
-		    	records.add(result);
-			    records.add(result2);
-		    }
+			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+			while(record1==null) {
+				end = dateTransferServiceImpl.turnLastDay(end);
+				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+			}
+		    	records.add(record1);
+			    records.add(record2);
+		    
 		}
 		return records;
 	}
@@ -69,23 +72,24 @@ public class RecordDaoImpl implements RecordDao {
 		String queryString = "select distinct r.ticker from Record r where r.ticker like :name";
 		List<String> tickers = sessionHibernate.createQuery(queryString).setString("name", "%"+ticker+"%").list();
 		List<Record> records = new ArrayList<>();
+		Record record1=null;
+		Record record2=null;
 		for(String t: tickers) {
 			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list1 =  sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).list();
+			record1 =  (Record) sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).uniqueResult();
 			Record result = null;
-			if(!list1.isEmpty()) {
-				result = list1.get(0);
+			while(record1==null) {
+				start = dateTransferServiceImpl.turnLastDay(start);
+				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
 			}
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).list();
-			Record result2 = null;
-			if(!list2.isEmpty()) {
-				result2 = list2.get(0);
-				}
-			if(result!=null && result2!=null) {
-		    	records.add(result);
-			    records.add(result2);
-		    }
+			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).uniqueResult();
+			while(record2==null) {
+				end = dateTransferServiceImpl.turnLastDay(start);
+				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+			}
+		    	records.add(record1);
+			    records.add(record2);
 		}
 		return records;
 	}
