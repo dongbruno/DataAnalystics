@@ -84,6 +84,7 @@ $(document).ready( function () {
   $('#search').on('click', function() {
       var searchUrl = 'searchDataBetweenDate/'+$('#startDate').val()+'/'+$('#endDate').val()+'/'+$('#stock').val();
       var tableUrl = table.ajax.url(searchUrl);
+      console.log(searchUrl)
       tableUrl.load();
   })
 

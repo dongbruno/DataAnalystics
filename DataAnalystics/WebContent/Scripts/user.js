@@ -2,7 +2,6 @@ angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) 
   $scope.chooseName="ss";
   $http.get("/getPortfolioName?username=admin").success(function(data) {
     $scope.portfolios = data;
-    console.log(data);
   });
 
   $scope.conut = function(stocks) {
@@ -10,7 +9,19 @@ angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) 
   }
 
   $scope.delete = function(target) {
-    console.log(this.portfolio.portfolioname);
+    index = this.$index;
+    $http({
+      method: 'GET',
+      url:'/deletePortfolioName',
+      params: {
+        portfolioName: this.portfolio.portfolioname,
+        username: "admin"
+      }
+    }).then(function successCallback(response) {
+        alert("delete successfully");
+        console.log(index)
+        $scope.portfolios.splice(index, 1);
+    })
   }
 
   $scope.createPortfolio = function() {
@@ -22,7 +33,7 @@ angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) 
         username: "admin"
       }
     }).then(function successCallback(response) {
-      $scope.portfolios.push($scope.portName);
+      $scope.portfolios.push({"quantity": 0,"portfolioname": $scope.portName});
       $scope.portName = '';
     })
   }

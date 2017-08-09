@@ -1,7 +1,18 @@
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+var localPortfolioname = GetQueryString('portfolioname');
+
 $(document).ready( function () {
+  url="getTickersFromPortfolio?username=admin&portfolioName="+localPortfolioname;
+  console.log(url)
     var table = $('#default_stocks').DataTable({
       "ajax": {
-         "url": "getDataBetweenDate/2016-01-04/2016-01-13",
+         "url": "getTickersFromPortfolio?username=admin&portfolioName="+localPortfolioname,
           "dataSrc": ""
        },
       "columnDefs":[
@@ -29,22 +40,6 @@ $(document).ready( function () {
          {"data" : "changepercent"} 
          ],
     });
-
-
-  //添加新的portfolio 名字
-  $('#create div').on('click', function() {
-    console.log($('#create input').val());
-    // $.ajax() {
-    //   url: '',
-    //   type: 'get',
-    //   data: {
-
-    //   },
-    //   success: function(data) {}
-    // }
-  })
-
-
 
   
 });

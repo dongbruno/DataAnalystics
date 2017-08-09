@@ -103,7 +103,7 @@ var localtoDate = GetQueryString('toDate');
 var localTiker = GetQueryString('ticker');
 
 $.ajax({
-    url: 'getDataBetweenDateByDay/2016-01-04/2016-03-05/a',
+    url: 'getDataBetweenDateByMinute/2016-01-04%2009:30/2016-01-11%2009:30/a',
     // data: {
     //     fromDate: '2016-01-04',
     //     toDate: '2016-03-05',
@@ -150,7 +150,7 @@ function calculateMA(dayCount, data) {
     return result;
 }
 
-$.get('getDataBetweenDateByDay/2016-01-04/2016-03-24/abbv', function (rawData) {
+$.get('getDataBetweenDateByMinute/2016-01-04 09:30/2016-01-11 09:30/a', function (rawData) {
 
     var data = splitData(rawData);
 
