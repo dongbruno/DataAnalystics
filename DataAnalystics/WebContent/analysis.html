@@ -1,35 +1,47 @@
-<!DOCTYPE html>
-<html>
+<DOCTYPE html>
+<html ng-app="app">
 <head>
-  <title>portfolio day details</title>
-  <meta charset="utf-8">
-  <meta name="author" content="Sean">
-  <link rel="shortcut icon" href="Images/ico.ico" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="Styles/bootstrap-table.css">
+<meta charset="utf-8"/>
+<title>ng-repeat</title>
+  <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
   <link rel="stylesheet" type="text/css" href="Styles/index.css">
-  <script src="Scripts/Angular.js"></script>
   <script src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-  <script src="Scripts/bootstrap-table.js"></script>
+  <script src="dataTable/js/jquery.dataTables.min.js"></script>
+  <script src="dataTable/extensions/Buttons/js/dataTables.buttons.min.js"></script>
 </head>
-<body ng-app="myApp" ng-controller="userCtrl">
-<table data-toggle="table" data-url="Json/test.json" data-height="450" data-pagination="true" data-align="center" >
-    <thead>
-        <tr>
-            <th data-field="ticker" data-sortable="true">ticker</th>
-            <th data-field="date" data-sortable="true">date</th>
-            <th data-field="open" data-sortable="true">open</th>
-            <th data-field="high" data-sortable="true">high</th>
-            <th data-field="low" data-sortable="true">low</th>
-            <th data-field="close" data-sortable="true">close</th>
-            <th data-field="vol" data-sortable="true">vol</th>
-        </tr>
-    </thead>
-</table>
+<body >
+<h1>scope</h1>
+<div ng-controller="ParentCtrl" >
+ParentCtrl：<br/>
+父scope的countrywaibu:{{countrywaibu}}<br/>
+父scope的countries:<br/>{{countries|json}}
+<ul>
+<li ng-repeat="countrywaibu in countries">ng-repeat:<br/>
+child 中调用父scope的$parent.countrywaibu :{{$parent.countrywaibu}}<br/>
+child中与父scope同名的countrywaibu的countrywaibu.name:    <input type="text" ng-model="countrywaibu.name"></input>
+    <span>{{countrywaibu.name}}</span><br/>
+    <button ng-click="remove($index)" >移除countries中的当前元素</button>
+</li>
+</ul>
+</div>
+
+<script type="text/javascript" chartset="utf-8">
+// the controller
+var app=angular.module('app',[]);
+app.controller('ParentCtrl',function($scope){
+    $scope.countrywaibu="waibu";
+    $scope.population = 7000;
+    $scope.countries = [
+        {name: 'France', population: 63.1},
+        {name: 'United Kingdom', population: 61.8}
+    ];
+    $scope.remove = function(index) {
+        //删除index下标的某个元素
+        $scope.countries.splice(index, 1);
+        }
+});
+</script>
+
 </body>
 </html>
-<script type="text/javascript" src="Scripts/portfolioDay.js"></script>
-<script src="Scripts/echarts.js"></script>
-<script type="text/javascript">
- </script>

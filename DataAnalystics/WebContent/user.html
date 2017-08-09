@@ -23,21 +23,22 @@
   <div id="main" class="analysis">
     <div class="page-header user-page-header">
       <h1><span class="icon-signal"></span>my portfolios</h1>
-      <button class="btn btn-default create">Create portfolio</button>
+      <button class="btn btn-default create" ng-click="createPortfolio()">Create portfolio</button>
+      <input style="float: right;margin: 22px 10px 0 0;" type="text" name="portName" ng-model="portName">
     </div>
 
       <table class="table table-striped">
         <thead>
           <tr>
             <th>name</th>
-            <th>stocks number</th>
+            <!-- <th>stocks number</th> -->
             <th>edit</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="portfolio in portfolios">
-            <td>{{portfolio.name}}</td>
-            <td>{{conut(portfolio.stocks)}}</td>
+            <td>{{portfolio}}</td>
+            <!-- <td>{{conut(portfolio.stocks)}}</td> -->
             <td>
               <a href="portfolio.html"><button class="btn btn-default" data-toggle="modal" data-target="#myModal">view</button></a>
               <button class="btn btn-default" data-toggle="modal" data-target="#myModal">delete</button>
@@ -52,6 +53,35 @@
   <footer>
     @copyright; 2017 Sean Yi, Inc.<br>
   </footer>
+
+
+  <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">my portfolio list</h4>
+            </div>
+            <div class="modal-body">
+              <ul class="portfolio-title">
+                <li id="create">create new: <input type="text" name="portName" id="portName" ng-model="portName"><div ng-click="createPortfolio()">+</div></li>
+              </ul>
+              <ul class="portfolio-list">
+                <li ng-repeat="portfolio in portfolios">
+                  <input type="radio" name="portName" ng-model="choosedPort" ng-value={{$index}}>
+                  <p ng-value="{{portfolio}}">{{portfolio}}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                <button type="button" ng-click="addTicker($event)" class="btn btn-primary">ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div>
 </body>
 </html>
 <script type="text/javascript" src="Scripts/user.js"></script>

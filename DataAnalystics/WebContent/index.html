@@ -64,7 +64,11 @@
                   <th id="edit">edit</th>
               </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              
+            </tr>
+          </tbody>
       </table>
     </div>
 
@@ -88,26 +92,21 @@
               </ul>
               <ul class="portfolio-list">
                 <li ng-repeat="portfolio in portfolios">
-                  <input type="radio" name="portName" ng-model="choosedPort" ng-value={{$index}}>
-                  <p ng-value="{{portfolio}}">{{portfolio}}</p>
+                  <input type="radio" name="portName" ng-model="$parent.choosedPortId" ng-value=portfolio>
+                  <span>{{portfolio}}</span>
                 </li>
               </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
-                <button type="button" ng-click="addTicker($event)" class="btn btn-primary">ok</button>
+                <button type="button" ng-click="addTicker()" class="btn btn-primary">submit</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 <div>
-                <input type="radio" name="a" ng-value="a" ng-model="c">11 <input type="text" ng-model="a">
-                <input type="radio" name="a" ng-value="b" ng-model="c">22<input type="text" ng-model="b">
-            </div>
-            <h1>{{c}}<h1>
 
 </body>
 </html>
 <script type="text/javascript" src="Scripts/laydate.dev.js"></script>
 <script type="text/javascript" src="Scripts/index.js"></script>
-

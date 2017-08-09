@@ -1,4 +1,5 @@
 var startDate = "";
+var choosedStock = "";
 //判断search是否可用
 function searchValid() {
   if ($('#stock').val() && $('#startDate').val() && $('#endDate').val()) {
@@ -42,16 +43,22 @@ $('#stock').on('blur', function() {
 })
 
 $(document).ready( function () {
-    var table = $('#default_stocks').DataTable({
+
+  var stockData = [{"changepercent":"-5.39%","ticker":"acas","change":"0.77","close":13.51,"open":14.28},{"changepercent":"-3.25%","ticker":"ace","change":"3.70","close":110.08,"open":113.78},{"changepercent":"-2.56%","ticker":"acn","change":"2.61","close":99.26,"open":101.87},{"changepercent":"-3.98%","ticker":"adbe","change":"3.66","close":88.3,"open":91.96},{"changepercent":"-8.53%","ticker":"ads","change":"23.19","close":248.56,"open":271.75},{"changepercent":"-15.61%","ticker":"adsk","change":"9.41","close":50.89,"open":60.3}];
+  var table = $('#default_stocks').DataTable({
       "ajax": {
           "url": "getDataBetweenDate/2016-01-04/2016-01-13",
           "dataSrc": ""
        },
+      "paging": false,
+      "searching": false,
+      "retrieve": true,
+      "bDestroy": true,
       "columnDefs":[
       { //自定义组件
           targets: 5,
           render: function (data, type, row, meta) {
-              return '<a type = "button" href="portfolioDay.html" class="btn btn-default">view</a><button class="btn btn-default" data-toggle="modal" data-target="#myModal">add</button>';
+              return '<a type = "button" href="portfolioDay.html" class="btn btn-default">view</a><button class="btn btn-default add" id="add" ng-click="showPortfolio()">add</button>';
           }
       },
           { "orderable": false, "targets": 5 },
@@ -80,11 +87,10 @@ $(document).ready( function () {
       tableUrl.load();
   })
 
-  //添加新的portfolio 名字
-  $('#add').on('click', function() {
-    $('#myModal').modal('show');
-  })
-
+  $("#default_stocks").delegate(".add","click",function(){
+    $("#myModal").modal('show');
+    choosedStock = "hhhhh";
+  });
 
 });
 
@@ -92,7 +98,7 @@ $(document).ready( function () {
 //angular 部分
 
 angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
-
+  
   $scope.showPortfolio = function() {
     $http.get("/getPortfolioName?username=admin").success(function(data) {
       $scope.portfolios = data;
@@ -124,8 +130,9 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   $scope.conutIndex = function(portfolio) {
     return $scope.portfolios.indexOf(portfolio);
   }
-  $scope.addTicker = function($event) {
-    console.log($scope.choosedPort);
+  $scope.addTicker = function() {
+    console.log($scope.choosedPortId + choosedStock);
   }
 
 })
+
