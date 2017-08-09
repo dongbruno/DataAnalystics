@@ -19,18 +19,15 @@ public class HomePageServiceImplTest {
 	@SuppressWarnings("null")
 	@Test
 	public void testSearchDataBetweenDate() {
-		Record record1 = new Record("a", "20160104", "930", 41.08, 41.08,
-				41.04, 41.06, 990);
-		Record record2 = new Record("a", "20160105", "9301", 40.92, 41.06,
-				40.92, 41.06, 13);
-		Record record3 = new Record("aa", "20160104", "930", 9.479, 9.489,
-				9.4292, 9.4591, 34525);
+		Record record1 = new Record("a", "20160104", "930", 41.08, 41.08, 41.04, 41.06, (double) 990);
+		Record record2 = new Record("a", "20160105", "9301", 40.92, 41.06,40.92, 41.06, (double) 13);
+		Record record3 = new Record("aa", "20160104", "930", 9.479, 9.489,9.4292, 9.4591, (double) 34525);
 		Record record4 = new Record("aa", "20160105", "9301", 9.4591, 9.4691,
-				9.4093, 9.4392, 732559);
+				9.4093, 9.4392, (double) 732559);
 		Record record5 = new Record("aal", "20160104", "930", 40.9782, 41.1776,
-				40.6491, 40.6491, 468172);
+				40.6491, 40.6491, (double) 468172);
 		Record record6 = new Record("aal", "20160105", "931", 40.6491, 40.7089,
-				40.5892, 40.6391, 70568);
+				40.5892, 40.6391, (double) 70568);
 		ArrayList<Record> records = new ArrayList<Record>();
 		records.add(record1);
 		records.add(record2);

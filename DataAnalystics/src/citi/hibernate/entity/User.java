@@ -1,5 +1,5 @@
 package citi.hibernate.entity;
-// Generated Aug 7, 2017 7:37:13 PM by Hibernate Tools 5.0.6.Final
+// Generated Aug 9, 2017 1:27:15 PM by Hibernate Tools 5.0.6.Final
 
 import java.util.HashSet;
 import java.util.Set;

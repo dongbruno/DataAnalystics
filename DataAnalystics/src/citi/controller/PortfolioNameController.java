@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import citi.hibernate.entity.Record;
 import citi.service.PortfolioNameService;
 @Controller
 public class PortfolioNameController {
@@ -44,10 +46,10 @@ public class PortfolioNameController {
 		}
 		return result;
 	}
-	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
+	@RequestMapping(value = "/getRecordsFromPortfolio", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> getTickersFromPortfolio(@RequestParam String username, @RequestParam String portfolioName){
-		List<String> result = portfolioNameServiceImpl.getTickersFromPortfolio(username, portfolioName);
+	public ArrayList<HashMap<String, Object>> getRecordsFromPortfolio(@RequestParam String username, @RequestParam String portfolioName){
+		ArrayList<HashMap<String, Object>> result = portfolioNameServiceImpl.getRecordsFromPortfolio(username, portfolioName);
 		return result;
 	}
 	@RequestMapping(value = "/addTickerToPortfolio", method = RequestMethod.GET)
