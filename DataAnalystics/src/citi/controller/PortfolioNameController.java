@@ -60,6 +60,12 @@ public class PortfolioNameController {
 		map.put("result", result);
 		return map;
 	}
+	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getTickersFromPortfolio(@RequestParam String username, @RequestParam String portfolioName){
+		List<String> result = portfolioNameServiceImpl.getTickersFromPortfolio(username, portfolioName);
+		return result;
+	}
 	@RequestMapping(value = "/deletePortfolioName", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> deletePortfolioName(@RequestParam String username, @RequestParam String portfolioName){
