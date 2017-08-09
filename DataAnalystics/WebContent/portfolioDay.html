@@ -155,7 +155,7 @@ $.get('getDataBetweenDateByMinute/2016-01-04 09:30/2016-01-11 09:30/a', function
     var data = splitData(rawData);
 
     myChart.setOption(option = {
-        backgroundColor: '#eee',
+        //backgroundColor: '#eee',
         animation: false,
         legend: {
             bottom: 10,
@@ -310,9 +310,15 @@ $.get('getDataBetweenDateByMinute/2016-01-04 09:30/2016-01-11 09:30/a', function
                 data: data.values,
                 itemStyle: {
                     normal: {
-                        borderColor: null,
-                        borderColor0: null
-                    }
+                        color:'#c23531',
+                        color0:'#314656',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        color:'#c23531',
+                        color0:'#314656',
+                        borderWidth: 2
+                    }                
                 },
                 tooltip: {
                     formatter: function (param) {

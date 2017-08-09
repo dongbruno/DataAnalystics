@@ -48,7 +48,10 @@ $(document).ready( function () {
   var table = $('#default_stocks').DataTable({
       "ajax": {
           "url": "getDataBetweenDate/2016-01-04/2016-01-13",
-          "dataSrc": ""
+          "dataSrc": "",
+          "success": function(data) {
+            loadData = data; 
+          }
        },
       "paging": false,
       "searching": false,
@@ -58,7 +61,8 @@ $(document).ready( function () {
       { //自定义组件
           targets: 5,
           render: function (data, type, row, meta) {
-              return '<a type = "button" href="portfolioDay.html" class="btn btn-default">view</a><button class="btn btn-default add" id="add" ng-click="showPortfolio()">add</button>';
+            console.log(loadData)
+              return '<button class="btn btn-default toView">view</button><button class="btn btn-default add" id="add" ng-click="showPortfolio()">add</button>';
           }
       },
           { "orderable": false, "targets": 5 },
@@ -88,7 +92,10 @@ $(document).ready( function () {
       tableUrl.load();
   })
 
-
+  $("#default_stocks").delegate("toView","click",function(){
+    alert(1);
+    window.location.href = 'portfolioDay.html?fromDate=2016-01-04 09:30&toDate=2016-01-11 09:30&ticker=' + $(this).parents('tr').find('td:first').html();
+  });
 
 });
 
@@ -129,8 +136,6 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
     return $scope.portfolios.indexOf(portfolio);
   }
   $scope.addTicker = function() {
-    console.log($scope.choosedPort + choosedStock);
-
     $http({
       method: 'GET',
       url:'/addTickerToPortfolio',
@@ -143,11 +148,6 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
         alert("add suceessfully");
     })
   }
-
-  $scope.$watch($scope.choosedStock, function(newVal, oldVal) {  
-               
-  }); 
-
 
   $("#default_stocks").delegate(".add","click",function(){
     $("#myModal").modal('show');
