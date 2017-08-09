@@ -23,15 +23,15 @@ public class ImportData {
                 System.out.println("文件夹是空的!");
                 return;
             } else {
-               // for (File file2 : files) {
-                	for(int i = 0; i < 57; i++) {
-                    if (files[i].isDirectory()) {
-                        System.out.println("文件夹:" + files[i].getAbsolutePath());
-                        traverseFolder2(files[i].getAbsolutePath());
+                for (File file2 : files) {
+//                	for(int i = 0; i < 57; i++) {
+                    if (file2.isDirectory()) {    
+                        System.out.println("文件夹:" + file2.getAbsolutePath());
+                        traverseFolder2(file2.getAbsolutePath());
                     } else {
-                        System.out.println("文件:" + files[i].getAbsolutePath());
-                        System.out.println("i="+i);
-                        //readData(files[i].getAbsolutePath());
+                        System.out.println("文件:" + file2.getAbsolutePath());
+                        System.out.println("i="+file2);
+                        readData(file2.getAbsolutePath());
                     }
                 }
             }
@@ -60,12 +60,12 @@ public class ImportData {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		PortfolioDaoImpl p = new PortfolioDaoImpl();
-		HibernateUtil.openSession();
-		System.out.println("result="+p.getPortfolioName("admin"));
-		HibernateUtil.closeSession();
-//		ImportData importData = new ImportData();
-//		importData.traverseFolder2("F:\\Data Analytics\\Market Data\\Sample Dataset #1\\Quant Quote Market Data - Jan to Mar 2016");
+//		PortfolioDaoImpl p = new PortfolioDaoImpl();
+//		HibernateUtil.openSession();
+//		System.out.println("result="+p.getPortfolioName("admin"));
+//		HibernateUtil.closeSession();
+		ImportData importData = new ImportData();
+		importData.traverseFolder2("C:\\Users\\Bruno\\Desktop\\Quant Quote Market Data - Jan to Mar 2016");
 	}
 
 }
