@@ -12,6 +12,7 @@ public class RecordServiceImpl implements RecordService {
 	@Override
 	public String insertRecord(Record record) {
 		// TODO Auto-generated method stub
+		 RecordDao recordDaoImpl = new RecordDaoImpl();
 		 HibernateUtil.openSession();
 		 recordDaoImpl.insertRecord(record);
          HibernateUtil.closeSession();

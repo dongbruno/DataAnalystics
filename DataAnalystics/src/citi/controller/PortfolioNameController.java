@@ -52,6 +52,12 @@ public class PortfolioNameController {
 		ArrayList<HashMap<String, Object>> result = portfolioNameServiceImpl.getRecordsFromPortfolio(username, portfolioName);
 		return result;
 	}
+	@RequestMapping(value = "/getTickersFromPortfolio", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getTickersFromPortfolio(@RequestParam String username, @RequestParam String portfolioName){
+		List<String> result = portfolioNameServiceImpl.getTickersFromPortfolio(username, portfolioName);
+		return result;
+	}
 	@RequestMapping(value = "/addTickerToPortfolio", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, String> addTickerToPortfolio(@RequestParam String username, @RequestParam String portfolioName, @RequestParam String ticker){
