@@ -38,7 +38,6 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		String queryString2 = "select s.stockTicker from Stock s left join s.portfolio p where p.portfolioId=?";
 		List<String> tickers = sessionHibernate.createQuery(queryString2).setParameter(0, pId).list();
 		return tickers;
-		
 	}
 	@Override
 	public String addTickersFromPortfolio(String username, String portfolioName, String ticker) {

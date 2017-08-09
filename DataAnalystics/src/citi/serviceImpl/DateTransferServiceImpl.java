@@ -13,20 +13,17 @@ public class DateTransferServiceImpl implements DateTransferService {
 	@Override
 	public String toDateFromString(String DBdate, String DBtime) {
 		// TODO Auto-generated method stub
-		String date = DBdate.substring(0, 4) + "-" + DBdate.substring(4, 6)
-				+ "-" + DBdate.substring(6);
-		String time = null;
 		String dateAll = null;
-		if (!DBtime.equals("0")) {
+		if (!DBtime.equals("")) {
 			if (DBtime.length() == 3) {
-				time = "0" + DBtime.substring(0, 1) + ":" + DBtime.substring(1);
+				dateAll = "0" + DBtime.substring(0, 1) + ":" + DBtime.substring(1);
 			} else {
-				time = DBtime.substring(0, 2) + ":" + DBtime.substring(2);
+				dateAll = DBtime.substring(0, 2) + ":" + DBtime.substring(2);
 			}
-			dateAll = date + " " + time;
-		} else {
-			dateAll = date;
-		}
+		} 
+		if (!DBdate.equals("")) {
+			dateAll = DBdate.substring(0, 4) + "/" + DBdate.substring(4, 6) + "/" + DBdate.substring(6);
+		} 
 		return dateAll;
 	}
 
