@@ -14,17 +14,21 @@ import citi.service.KLineChartService;
 @Service
 public class KLineChartServiceImpl implements KLineChartService {
 	@Resource
-	DateTransferService DateTransferServiceImpl;
+	DateTransferService dateTransferServiceImpl;
 	@Resource
 	RecordDao recordDaoImpl;
 	@Override
 	public List<Record> getDataBetweenDateByDay(String fromDate, String toDate, String ticker) {
 		// TODO Auto-generated method stub
-		String start = DateTransferServiceImpl.toListFromDate(fromDate).get(0);
-		String end = DateTransferServiceImpl.toListFromDate(toDate).get(0);
+		String start = dateTransferServiceImpl.toListFromDate(fromDate).get(0);
+		String end = dateTransferServiceImpl.toListFromDate(toDate).get(0);
 		HibernateUtil.openSession();
 		List<Record> records = recordDaoImpl.getDataBetweenDateByDay(start, end, ticker);
 		HibernateUtil.closeSession();
+		for(Record r :records) {
+			r.setDate(dateTransferServiceImpl.toDateFromString(r.getDate(), ""));
+			r.setTime(dateTransferServiceImpl.toDateFromString("", r.getTime()));
+		}
 		return records;
 	}
 	@Override
@@ -33,6 +37,10 @@ public class KLineChartServiceImpl implements KLineChartService {
 		HibernateUtil.openSession();
 		List<Record> records = recordDaoImpl.getDataBetweenDateByMinute(fromDate, toDate, ticker);
 		HibernateUtil.closeSession();
+		for(Record r :records) {
+			r.setDate(dateTransferServiceImpl.toDateFromString(r.getDate(), ""));
+			r.setTime(dateTransferServiceImpl.toDateFromString("", r.getTime()));
+		}
 		return records;
 	}
 }
