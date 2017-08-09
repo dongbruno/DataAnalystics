@@ -30,6 +30,9 @@ public class KLineChartServiceImpl implements KLineChartService {
 	@Override
 	public List<Record> getDataBetweenDateByMinute(String fromDate, String toDate, String ticker) {
 		// TODO Auto-generated method stub
-		return null;
+		HibernateUtil.openSession();
+		List<Record> records = recordDaoImpl.getDataBetweenDateByMinute(fromDate, toDate, ticker);
+		HibernateUtil.closeSession();
+		return records;
 	}
 }

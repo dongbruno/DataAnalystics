@@ -31,7 +31,7 @@ public class RecordDaoImpl implements RecordDao {
 	    String endDate = end.get(0);
 	    String endTime = end.get(1);
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time>=? and r.time<=?";
+		String queryString2 = "select r from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time>=? and r.time<=?";
 		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startTime).setParameter(4, endTime).list();
 		return records;
 	}
@@ -43,13 +43,13 @@ public class RecordDaoImpl implements RecordDao {
 		List<String> tickers = sessionHibernate.createQuery(queryString).setFirstResult(0).setMaxResults(10).list();
 		List<Record> records = new ArrayList<>();
 		for(String ticker: tickers) {
-			String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list1 = sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
 			Record result = null;
 			if(!list1.isEmpty()) {
 				result = list1.get(0);
 			}
-			String queryString3 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
 			Record result2 = null;
 			if(!list2.isEmpty()) {
@@ -70,13 +70,13 @@ public class RecordDaoImpl implements RecordDao {
 		List<String> tickers = sessionHibernate.createQuery(queryString).setString("name", "%"+ticker+"%").list();
 		List<Record> records = new ArrayList<>();
 		for(String t: tickers) {
-			String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list1 =  sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).list();
 			Record result = null;
 			if(!list1.isEmpty()) {
 				result = list1.get(0);
 			}
-			String queryString3 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).list();
 			Record result2 = null;
 			if(!list2.isEmpty()) {
@@ -93,7 +93,7 @@ public class RecordDaoImpl implements RecordDao {
 	public List<Record> getDataBetweenDateByDay(String start, String end, String ticker) {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString2 = "select new Record(r.ticker, r.date, r.time, r.open, r.high,r.low,r.close,r.volume) from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time = '1559'";
+		String queryString2 = "select r from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time = '1559'";
 		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setParameter(2, end).list();
 		return records;
 	}
