@@ -31,8 +31,8 @@ public class RecordDaoImpl implements RecordDao {
 	    String endDate = end.get(0);
 	    String endTime = end.get(1);
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString2 = "select r from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time>=? and r.time<=?";
-		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startTime).setParameter(4, endTime).list();
+		String queryString = "select r from Record r where r.ticker=? and ((r.date>? and r.date<?) or ((r.date=? and r.time>=?) or (r.date=? and r.time<=?)))";
+		List<Record> records =  sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startDate).setParameter(4, startTime).setParameter(5, endDate).setParameter(6, endTime).list();
 		return records;
 	}
 	@Override
