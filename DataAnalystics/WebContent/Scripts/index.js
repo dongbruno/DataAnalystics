@@ -128,14 +128,14 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
     return $scope.portfolios.indexOf(portfolio);
   }
   $scope.addTicker = function() {
-    console.log($scope.choosedPortId + choosedStock);
+    console.log($scope.choosedPort + choosedStock);
 
     $http({
       method: 'GET',
       url:'/addTickerToPortfolio',
       params: {
         username: "admin",
-        portfolioName: $scope.choosedPortId,
+        portfolioName: $scope.choosedPort,
         ticker: choosedStock
       }
     }).then(function successCallback(response) {
@@ -152,6 +152,7 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
     $("#myModal").modal('show');
     $scope.showPortfolio()
     choosedStock = $(this).parents('tr').find('td:first').html();
+    console.log(choosedStock)
   });
 
 })

@@ -26,8 +26,6 @@
     </ul>
   </header>
   <div id="main">
-            <button class="btn btn-default" ng-click="showPortfolio()" id="add">add</button>';
-
     <div class="news">
       <h1><em>Data Analysis Tool</em></h1>
       <p>Wuxia literally means "martial hero". It is broad genre of Chinese fiction describing adventures of martial artists. Young male protagonist undertakes several trials and tribulations and learns several forms of martial arts from various fighters. At the end of the story he becomes a powerful fighter whom few can equal.</p>
@@ -92,8 +90,8 @@
               </ul>
               <ul class="portfolio-list">
                 <li ng-repeat="portfolio in portfolios">
-                  <input type="radio" name="portName" ng-model="$parent.choosedPortId" ng-value=portfolio>
-                  <span>{{portfolio}}</span>
+                  <input type="radio" name="portName" ng-model="$parent.choosedPort" ng-value=portfolio.portfolioname>
+                  <span>{{portfolio.portfolioname}}</span>
                 </li>
               </ul>
             </div>

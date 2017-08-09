@@ -1,4 +1,5 @@
 angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) {
+  $scope.chooseName="ss";
   $http.get("/getPortfolioName?username=admin").success(function(data) {
     $scope.portfolios = data;
     console.log(data);
@@ -8,8 +9,8 @@ angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) 
     return stocks.length;
   }
 
-  $scope.delete = function(stocks) {
-    return stocks.length;
+  $scope.delete = function(target) {
+    console.log(this.portfolio.portfolioname);
   }
 
   $scope.createPortfolio = function() {

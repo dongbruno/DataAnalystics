@@ -31,17 +31,17 @@
         <thead>
           <tr>
             <th>name</th>
-            <!-- <th>stocks number</th> -->
+            <th>stocks number</th>
             <th>edit</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="portfolio in portfolios">
-            <td>{{portfolio}}</td>
-            <!-- <td>{{conut(portfolio.stocks)}}</td> -->
+            <td>{{portfolio.portfolioname}}</td>
+            <td>{{portfolio.quantity}}</td>
             <td>
               <a href="portfolio.html"><button class="btn btn-default" data-toggle="modal" data-target="#myModal">view</button></a>
-              <button class="btn btn-default" data-toggle="modal" data-target="#myModal">delete</button>
+              <button class="btn btn-default"  ng-value={{portfolio.portfolioname}} ng-click="delete($event)">delete</button>
             </td>
           </tr>
         </tbody>
