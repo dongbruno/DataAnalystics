@@ -40,7 +40,7 @@
             <td>{{portfolio.portfolioname}}</td>
             <td>{{portfolio.quantity}}</td>
             <td>
-              <a href="portfolio.html?portfolioname={{portfolio.portfolioname}}"><button class="btn btn-default">view</button></a>
+              <a href="portfolio.html?portfolioname={{portfolio.portfolioname}}&quantity={{portfolio.quantity}}"><button class="btn btn-default">view</button></a>
               <button class="btn btn-default"  ng-value={{portfolio.portfolioname}} index="{{$index}}" ng-click="delete($event)">delete</button>
             </td>
           </tr>

@@ -48,20 +48,12 @@ $(document).ready( function () {
   var table = $('#default_stocks').DataTable({
       "ajax": {
           "url": "getDataBetweenDate/2016-01-04/2016-01-13",
-          "dataSrc": "",
-          "success": function(data) {
-            loadData = data; 
-          }
+          "dataSrc": ""
        },
-      "paging": false,
-      "searching": false,
-      "retrieve": true,
-      "bDestroy": true,
       "columnDefs":[
       { //自定义组件
           targets: 5,
           render: function (data, type, row, meta) {
-            console.log(loadData)
               return '<button class="btn btn-default toView">view</button><button class="btn btn-default add" id="add" ng-click="showPortfolio()">add</button>';
           }
       },
@@ -92,8 +84,7 @@ $(document).ready( function () {
       tableUrl.load();
   })
 
-  $("#default_stocks").delegate("toView","click",function(){
-    alert(1);
+  $("#default_stocks").delegate(".toView","click",function(){
     window.location.href = 'portfolioDay.html?fromDate=2016-01-04 09:30&toDate=2016-01-11 09:30&ticker=' + $(this).parents('tr').find('td:first').html();
   });
 
@@ -106,6 +97,7 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   $scope.choosedStock = "ss";
   $scope.showPortfolio = function() {
     $http.get("/getPortfolioName?username=admin").success(function(data) {
+      console.log(data);
       $scope.portfolios = data;
     });
   }
@@ -114,7 +106,7 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
 
     //先检测是否有重复的portfolio name
     for(var i = 0; i < $scope.portfolios.length; i++) {
-      if ($scope.portName == $scope.portfolios[i]) {
+      if ($scope.portName == $scope.portfolios[i].portfolioname) {
         alert("repeat portfolio name");
         return;
       }
@@ -127,7 +119,7 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
         username: "admin"
       }
     }).then(function successCallback(response) {
-      $scope.portfolios.push($scope.portName);
+      $scope.portfolios.push({"quantity": 0,"portfolioname": $scope.portName});
       $scope.portName = '';
     })
   }

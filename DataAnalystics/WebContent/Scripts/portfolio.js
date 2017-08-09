@@ -6,20 +6,22 @@ function GetQueryString(name)
 }
 
 var localPortfolioname = GetQueryString('portfolioname');
+var localQuantity = GetQueryString('quantity');
+
+$('#pName').html(localPortfolioname);
+$('#pNumber').html(localQuantity);
 
 $(document).ready( function () {
-  url="getTickersFromPortfolio?username=admin&portfolioName="+localPortfolioname;
-  console.log(url)
     var table = $('#default_stocks').DataTable({
       "ajax": {
-         "url": "getTickersFromPortfolio?username=admin&portfolioName="+localPortfolioname,
+         "url": "getRecordsFromPortfolio?username=admin&portfolioName="+localPortfolioname,
           "dataSrc": ""
        },
       "columnDefs":[
       { //自定义组件
           targets: 5,
           render: function (data, type, row, meta) {
-              return '<a type = "button" href="portfolioDay.html" class="btn btn-default">view</a><button class="btn btn-default" data-toggle="modal" data-target="#myModal">add</button>';
+              return '<button class="btn btn-default toView">view</button><button class="btn btn-default delete">delete</button>';
           }
       },
           { "orderable": false, "targets": 5 },
@@ -41,5 +43,22 @@ $(document).ready( function () {
          ],
     });
 
-  
+    $("#default_stocks").delegate(".toView","click",function(){
+      window.location.href = 'portfolioDay.html?fromDate=2016-01-04 09:30&toDate=2016-01-11 09:30&ticker=' + $(this).parents('tr').find('td:first').html();
+    });
+
+
+    //删除
+    $("#default_stocks").delegate(".delete","click",function(){
+      $(this).parents('tr').remove();
+      $.ajax({
+        url: 'deleteTickerFromPortfolio',
+        data: {
+          username: 'admin',
+          portfolioName: localPortfolioname,
+          ticker: $(this).parents('tr').find('td:first').html()
+        }
+      })
+    });
+    
 });
