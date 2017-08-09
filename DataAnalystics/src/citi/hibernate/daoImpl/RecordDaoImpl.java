@@ -46,15 +46,20 @@ public class RecordDaoImpl implements RecordDao {
 			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list1 = sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
 			Record result = null;
-			if(!list1.isEmpty()) {
-				result = list1.get(0);
+			while(list1.isEmpty()) {
+				start = dateTransferServiceImpl.turnLastDay(start);
+				list1 = sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
 			}
+			result = list1.get(0);
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
 			Record result2 = null;
-			if(!list2.isEmpty()) {
-				result2 = list2.get(0);
-				}
+			
+			while(list2.isEmpty()) {
+				end = dateTransferServiceImpl.turnLastDay(end);
+				list2 = sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
+			}
+			result2 = list2.get(0);
 		    if(result!=null && result2!=null) {
 		    	records.add(result);
 			    records.add(result2);
@@ -73,15 +78,19 @@ public class RecordDaoImpl implements RecordDao {
 			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list1 =  sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).list();
 			Record result = null;
-			if(!list1.isEmpty()) {
-				result = list1.get(0);
+			while(list1.isEmpty()) {
+				start = dateTransferServiceImpl.turnLastDay(start);
+				list1 = sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).list();
 			}
+			result = list1.get(0);
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			List<Record> list2 = sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).list();
-			Record result2 = null;
-			if(!list2.isEmpty()) {
-				result2 = list2.get(0);
-				}
+            Record result2 = null;
+			while(list2.isEmpty()) {
+				end = dateTransferServiceImpl.turnLastDay(end);
+				list2 = sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).list();
+			}
+			result2 = list2.get(0);
 			if(result!=null && result2!=null) {
 		    	records.add(result);
 			    records.add(result2);
