@@ -52,7 +52,7 @@ public class ImportData {
             RecordService recordService = new RecordServiceImpl();
             while((line=reader.readLine())!=null){
                 String item[] = line.split(",");//CSV格式文件为逗号分隔符文件，这里根据逗号切分
-                 recordService.insertRecord(new Record(ticker, item[0], item[1], Double.parseDouble(item[2]), Double.parseDouble(item[3]), Double.parseDouble(item[4]), Double.parseDouble(item[5]), Integer.valueOf(item[6])));
+                 recordService.insertRecord(new Record(ticker, item[0], item[1], Double.parseDouble(item[2]), Double.parseDouble(item[3]), Double.parseDouble(item[4]), Double.parseDouble(item[5]), Double.parseDouble(item[6])));
             } 
         } catch (Exception e) { 
             e.printStackTrace(); 

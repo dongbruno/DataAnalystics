@@ -28,8 +28,8 @@
         <property generated="never" lazy="false" name="close" optimistic-lock="true" type="java.lang.Double" unique="false">
             <column name="close" precision="22" scale="0"/>
         </property>
-        <property generated="never" lazy="false" name="volume" optimistic-lock="true" type="java.lang.Integer" unique="false">
-            <column name="volume"/>
+        <property generated="never" lazy="false" name="volume" optimistic-lock="true" type="java.lang.Double" unique="false">
+            <column name="volume" precision="11" scale="0"/>
         </property>
     </class>
 </hibernate-mapping>

@@ -3,9 +3,9 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
     <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="stock" dynamic-insert="false" dynamic-update="false" mutable="true" name="citi.hibernate.entity.Stock" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="stock">
-        <id name="stockId" type="int">
+        <id name="stockId" type="java.lang.Integer">
             <column name="stock_id"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <many-to-one class="citi.hibernate.entity.Portfolio" embed-xml="true" fetch="select" insert="true" name="portfolio" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="portfolio_id"/>
