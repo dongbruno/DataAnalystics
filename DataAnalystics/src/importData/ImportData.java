@@ -59,13 +59,9 @@ public class ImportData {
         } 
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		PortfolioDaoImpl p = new PortfolioDaoImpl();
-//		HibernateUtil.openSession();
-//		System.out.println("result="+p.getPortfolioName("admin"));
-//		HibernateUtil.closeSession();
+
 		ImportData importData = new ImportData();
-		importData.traverseFolder2("C:\\Users\\Bruno\\Desktop\\Quant Quote Market Data - Jan to Mar 2016");
+		importData.traverseFolder2("D:\\CitiTraining2017-7\\Quant Quote Market Data - Jan to Mar 2016");
 	}
 	
 	
