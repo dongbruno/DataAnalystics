@@ -33,7 +33,7 @@ public class RecordDaoImpl implements RecordDao {
 	    String endTime = end.get(1);
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select r from Record r where r.ticker=? and ((r.date>? and r.date<?) or ((r.date=? and r.time>=?) or (r.date=? and r.time<=?)))";
-		List<Record> records =  sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startDate).setParameter(4, startTime).setParameter(5, endDate).setParameter(6, endTime).list();
+		List<Record> records =  sessionHibernate.createQuery(queryString).setParameter(0, ticker).setParameter(1, startDate).setParameter(2, endDate).setParameter(3, startDate).setParameter(4, startTime).setParameter(5, endDate).setParameter(6, endTime).setCacheable(true).list();
 		return records;
 	}
 	@Override
@@ -46,22 +46,23 @@ public class RecordDaoImpl implements RecordDao {
 		String[] tickers = {"abbv", "amzn","antm","apol","avgo","bbby","bby","biib","bxlt"};
 		Record record1=null;
 		Record record2=null;
+		String queryString2;
+		String queryString3;
 		for(String ticker: tickers) {
-			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+			queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setCacheable(true).uniqueResult();
 			while(record1==null) {
 				start = dateTransferServiceImpl.turnLastDay(start);
-				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setCacheable(true).uniqueResult();
 			}
-			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+			queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).setCacheable(true).uniqueResult();
 			while(record1==null) {
 				end = dateTransferServiceImpl.turnLastDay(end);
-				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).setCacheable(true).uniqueResult();
 			}
 		    	records.add(record1);
 			    records.add(record2);
-		    
 		}
 		return records;
 	}
@@ -74,19 +75,20 @@ public class RecordDaoImpl implements RecordDao {
 		List<Record> records = new ArrayList<>();
 		Record record1=null;
 		Record record2=null;
+		String queryString2;
+		String queryString3;
 		for(String t: tickers) {
-			String queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			record1 =  (Record) sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).uniqueResult();
-			Record result = null;
+			queryString2 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			record1 =  (Record) sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).setCacheable(true).uniqueResult();
 			while(record1==null) {
 				start = dateTransferServiceImpl.turnLastDay(start);
-				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).uniqueResult();
+				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setCacheable(true).uniqueResult();
 			}
-			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).uniqueResult();
+			queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
+			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).setCacheable(true).uniqueResult();
 			while(record2==null) {
 				end = dateTransferServiceImpl.turnLastDay(start);
-				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).uniqueResult();
+				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).setCacheable(true).uniqueResult();
 			}
 		    	records.add(record1);
 			    records.add(record2);
@@ -98,7 +100,7 @@ public class RecordDaoImpl implements RecordDao {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString2 = "select r from Record r where r.ticker=? and r.date>=? and r.date<=? and r.time = '1559'";
-		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setParameter(2, end).list();
+		List<Record> records =  sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setParameter(2, end).setCacheable(true).list();
 		return records;
 	}
 }

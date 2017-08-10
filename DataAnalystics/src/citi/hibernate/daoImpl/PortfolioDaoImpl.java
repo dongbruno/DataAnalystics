@@ -16,7 +16,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 	public List<String> getPortfolioName(String username) {
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioname from Portfolio p left join p.user u where u.username = ?";
-		List<String> result = sessionHibernate.createQuery(queryString).setParameter(0, username).list();
+		List<String> result = sessionHibernate.createQuery(queryString).setParameter(0, username).setCacheable(true).list();
 		return result;
 	}
 	//need to judge the portfolioname if exist
@@ -24,7 +24,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 	public String createPortfolioName(String username, String portfolioName) {
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select u from User u where u.username=? ";
-		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).uniqueResult();
+		User user = (User) sessionHibernate.createQuery(queryString).setParameter(0, username).setCacheable(true).uniqueResult();
 		sessionHibernate.beginTransaction();
 		sessionHibernate.save(new Portfolio(user, portfolioName));
 		sessionHibernate.getTransaction().commit();
@@ -34,7 +34,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 	public List<String> getTickersFromPortfolio(String username, String portfolioName) {
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
-		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
+		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).setCacheable(true).uniqueResult();
 		String queryString2 = "select s.stockTicker from Stock s left join s.portfolio p where p.portfolioId=?";
 		List<String> tickers = sessionHibernate.createQuery(queryString2).setParameter(0, pId).list();
 		return tickers;
@@ -43,7 +43,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 	public String addTickersFromPortfolio(String username, String portfolioName, String ticker) {
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p from Portfolio p left join p.user u where p.portfolioname=? and u.username=?";
-		Portfolio portfolio = (Portfolio) sessionHibernate.createQuery(queryString).setParameter(0, portfolioName).setParameter(1, username).uniqueResult();
+		Portfolio portfolio = (Portfolio) sessionHibernate.createQuery(queryString).setParameter(0, portfolioName).setParameter(1, username).setCacheable(true).uniqueResult();
 		sessionHibernate.beginTransaction();
 		sessionHibernate.save(new Stock(portfolio, ticker));
 		sessionHibernate.getTransaction().commit();
@@ -54,7 +54,7 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
-		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
+		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).setCacheable(true).uniqueResult();
 		sessionHibernate.beginTransaction();
 		String hql = "delete from Stock s where s.portfolio.portfolioId = ? and s.stockTicker = ? " ;     
 		sessionHibernate.createQuery(hql).setParameter(0, pId).setParameter(1, ticker).executeUpdate() ;     
@@ -75,20 +75,20 @@ public class PortfolioDaoImpl implements PortfolioDao {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select p.portfolioId from Portfolio p left join p.user u where u.username=? and p.portfolioname=?";
-		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).uniqueResult();
+		int pId = (int) sessionHibernate.createQuery(queryString).setParameter(0, username).setParameter(1, portfolioName).setCacheable(true).uniqueResult();
 		String queryString2 = "select s.stockTicker from Stock s left join s.portfolio p where p.portfolioId=?";
 		List<String> tickers = sessionHibernate.createQuery(queryString2).setParameter(0, pId).list();
 		
 		List<Record> records = new ArrayList<>();
 		for(String t: tickers) {
 			String queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list1 =  sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, "20160104").list();
+			List<Record> list1 =  sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, "20160104").setCacheable(true).list();
 			Record result = null;
 			if(!list1.isEmpty()) {
 				result = list1.get(0);
 			}
 			String queryString4 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
-			List<Record> list2 = sessionHibernate.createQuery(queryString4).setParameter(0, t).setParameter(1, "20160324").list();
+			List<Record> list2 = sessionHibernate.createQuery(queryString4).setParameter(0, t).setParameter(1, "20160324").setCacheable(true).list();
 			Record result2 = null;
 			if(!list2.isEmpty()) {
 				result2 = list2.get(0);

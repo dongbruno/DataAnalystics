@@ -4,6 +4,7 @@
     <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
   
     <class catalog="stock" dynamic-insert="false" dynamic-update="false" mutable="true" name="citi.hibernate.entity.Record" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="record">
+         <cache usage="read-only"/>
         <id name="recordId" type="java.lang.Integer">
             <column name="record_id"/>
             <generator class="identity"/>
