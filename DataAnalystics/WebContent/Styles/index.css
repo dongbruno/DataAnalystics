@@ -13,12 +13,13 @@ header {
 	position: fixed;
 	top: 0;
 	z-index: 999;
-	background-color: white;
-	box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+	background-color: black;
+	//box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
 }
 .logoName {
 	padding-left: calc(50% - 550px);
 	font-size: 30px;
+	color: red;
 }
 header ul {
 	display: inline-block;
