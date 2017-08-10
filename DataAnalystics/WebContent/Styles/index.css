@@ -57,14 +57,14 @@ header ul li {
 .portfolio-news {
 	display: flex;
 	padding: 20px;
+	justify-content: space-around;
 }
 .portfolio-news img {
 	width: 200px;
 	height: 170px;
 }
 .portfolio-intro {
-	margin-left: 40px;
-	padding-top: 60px;
+
 }
 .row {
 	margin: 0 !important;

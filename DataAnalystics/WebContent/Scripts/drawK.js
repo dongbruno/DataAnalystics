@@ -1,11 +1,15 @@
 //绘制K线图
 
-function splitData(rawData) {
+function splitData(rawData, type) {
     var categoryData = [];
     var values = [];
     var volumes = [];
     for (var i = 0; i < rawData.length; i++) {
-        categoryData.push(rawData[i].date+'' +rawData[i].time);
+        if (type == "d") {
+            categoryData.push(rawData[i].date);
+        } else {
+            categoryData.push(rawData[i].date+' '+rawData[i].time);
+        }
         var temp = [rawData[i].open, rawData[i].close, rawData[i].low, rawData[i].high];
         values.push(temp);
         volumes.push([i, rawData[i].volume, rawData[i].open > rawData[i].close ? 1 : -1]);
@@ -20,7 +24,6 @@ function splitData(rawData) {
 
 function calculateMA(dayCount, data) {
     var result = [];
-    console.log(data.values+'.................')
     for (var i = 0, len = data.values.length; i < len; i++) {
         if (i < dayCount) {
             result.push('-');
@@ -32,14 +35,13 @@ function calculateMA(dayCount, data) {
         }
         result.push(+(sum / dayCount).toFixed(3));
     }
-    console.log('--------------------'+result);
     return result;
 }
 
 var myChart = echarts.init(document.getElementById('chart'));
-function writeK(rawData) {
-	var data = splitData(rawData);
-    myChart.setOption(option = {
+function writeK(rawData, type) {
+    var data = splitData(rawData, type);
+    option = {
         legend: {
             bottom: 10,
             left: 'center',
@@ -170,22 +172,6 @@ function writeK(rawData) {
                 splitLine: {show: false}
             }
         ],
-        dataZoom: [
-            {
-                type: 'inside',
-                xAxisIndex: [0, 1],
-                start: 98,
-                end: 100
-            },
-            {
-                show: true,
-                xAxisIndex: [0, 1],
-                type: 'slider',
-                top: '85%',
-                start: 98,
-                end: 100
-            }
-        ],
         series: [
             {
                 name: 'Dow-Jones index',
@@ -247,7 +233,7 @@ function writeK(rawData) {
                     normal: {opacity: 0.5}
                 }
             },
-           		{
+                {
                 name: 'Volume',
                 type: 'bar',
                 xAxisIndex: 1,
@@ -255,7 +241,44 @@ function writeK(rawData) {
                 data: data.volumes
             }
         ]
-    }, true);
+    };
+    if (type == "m") {
+        dataZoom = [
+            {
+                type: 'inside',
+                xAxisIndex: [0, 1],
+                start: 98,
+                end: 100
+            },
+            {
+                show: true,
+                xAxisIndex: [0, 1],
+                type: 'slider',
+                top: '85%',
+                start: 98,
+                end: 100
+            }
+        ];
+    } else {
+        dataZoom = [
+            {
+                type: 'inside',
+                xAxisIndex: [0, 1],
+                start: 0,
+                end: 100
+            },
+            {
+                show: true,
+                xAxisIndex: [0, 1],
+                type: 'slider',
+                top: '85%',
+                start: 0,
+                end: 100
+            }
+        ];
+    }
+    option.dataZoom = dataZoom;
+    myChart.setOption(option, true);
 
     myChart.dispatchAction({
         type: 'brush',
