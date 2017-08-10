@@ -3,8 +3,17 @@ package citi.hibernate.entity;
 public class TempRecord {
 	private String ticker;
 	private Double open;
+	private Double close;
 	private String changePerc;
 	private String change;
+	public TempRecord(String ticker, Double open, Double close, String changePerc, String change) {
+		super();
+		this.ticker = ticker;
+		this.open = open;
+		this.close = close;
+		this.changePerc = changePerc;
+		this.change = change;
+	}
 	public String getTicker() {
 		return ticker;
 	}
@@ -17,6 +26,12 @@ public class TempRecord {
 	public void setOpen(Double open) {
 		this.open = open;
 	}
+	public Double getClose() {
+		return close;
+	}
+	public void setClose(Double close) {
+		this.close = close;
+	}
 	public String getChangePerc() {
 		return changePerc;
 	}
@@ -27,12 +42,6 @@ public class TempRecord {
 		return change;
 	}
 	public void setChange(String change) {
-		this.change = change;
-	}
-	public TempRecord(String ticker, Double open, String changePerc, String change) {
-		this.ticker = ticker;
-		this.open = open;
-		this.changePerc = changePerc;
 		this.change = change;
 	}
 	

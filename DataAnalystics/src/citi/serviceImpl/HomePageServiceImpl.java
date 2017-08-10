@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import citi.hibernate.dao.RecordDao;
 import citi.hibernate.entity.Record;
 import citi.hibernate.entity.TempRecord;
@@ -58,7 +56,7 @@ public class HomePageServiceImpl implements HomePageService {
 			} 
 		    change = new BigDecimal(String.valueOf(open)).subtract(new BigDecimal(String.valueOf(close))).toString();
 			i = i + 2;
-			recordDate.add(new TempRecord(tickerName, open, changePerc, change));
+			recordDate.add(new TempRecord(tickerName, open, close, changePerc, change));
 		}
 		return recordDate;
 	}
@@ -99,7 +97,7 @@ public class HomePageServiceImpl implements HomePageService {
 			} 
 			change = new BigDecimal(String.valueOf(open)).subtract(new BigDecimal(String.valueOf(close))).toString();
 			i = i + 2;
-			recordDate.add(new TempRecord(ticker, open, changePerc, change));
+			recordDate.add(new TempRecord(ticker, open, close, changePerc, change));
 		}
 		return recordDate;
 	}
