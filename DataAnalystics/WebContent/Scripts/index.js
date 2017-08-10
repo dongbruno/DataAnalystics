@@ -62,7 +62,7 @@ $(document).ready( function () {
       "columns": [   
          {"data" : "ticker"},  
          {"data" : "open"},  
-         {"data" : null},
+         {"data" :"close"},
          {"data" : "change"},
          {"data" : "changePerc"},   
          ],
