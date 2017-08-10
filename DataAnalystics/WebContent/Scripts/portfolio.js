@@ -26,14 +26,6 @@ $(document).ready( function () {
       },
           { "orderable": false, "targets": 5 },
       ],
-      "oLanguage": {
-        "oPaginate": {
-          "sFirst": "First",
-          "sPrevious": "Previous",
-          "sNext": "Next",
-          "sLast": "Last"
-        }
-      },
       "columns": [   
          {"data" : "ticker"},  
          {"data" : "open"},  
@@ -62,3 +54,93 @@ $(document).ready( function () {
     });
     
 });
+//绘制折线图
+var myChart = echarts.init(document.getElementById('chart'));
+var tickerArray = [];
+var data = [];
+var xAxisData = [];
+var seriesData = [];
+var seriesData1 = [];
+var seriesData2 = [];
+$.ajax({
+  url: "getRecordsFromPortfolio?username=admin&portfolioName="+localPortfolioname,
+  async: false,
+  success: function(data) {
+    for (var i = 0; i < data.length; i++) {
+      tickerArray.push(data[i].ticker);
+    };
+  }
+})
+var option = {
+    title: {
+        text: 'line'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data:[]
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '13%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: xAxisData
+    },
+    yAxis: {
+        splitLine: {
+            show: false
+        },
+        type: 'value'
+    },    dataZoom: [
+        {
+            show: true,
+            start: 0,
+            end: 100,
+        },
+        {
+            type: 'inside',
+            start: 0,
+            end: 100,
+        }
+    ],
+    series: []
+};
+//获取数据
+function getData(tickerName) {
+  $.ajax({
+    url: 'getDataBetweenDateByMinute/2016-01-04%2009:30/2016-03-04%2009:30/'+tickerName,
+    success: function(data) {
+      for (var i = 0; i < data.length; i++) {
+        if (xAxisData.length <  data.length) {
+          xAxisData.push(data[i].date+ ' ' +data[i].time);
+        }
+        seriesData.push(data[i].close);
+      };
+      var item = {
+              name: tickerName,
+              type:'line',
+              data:seriesData
+      };
+      seriesData = [];
+      option.legend.data.push(tickerName);
+      option.series.push(item);
+      myChart.setOption(option);
+    }
+  })
+}
+
+//开始画图
+
+for (var i = 0; i < tickerArray.length; i++) {
+  getData(tickerArray[i]);
+}
+//加载完数据一次性画图
+
+
+

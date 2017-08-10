@@ -23,8 +23,21 @@ angular.module('myApp', []).controller('portfolioCtrl', function($http, $scope) 
         $scope.portfolios.splice(index, 1);
     })
   }
-
+  //check repeat
+  $scope.checkRepeat =function() {
+    for (var i = 0; i < $scope.portfolios.length; i++) {
+      if ( $scope.portfolios[i].portfolioname == $scope.portName) {
+        alert('repeat portfolioName');
+        return;
+      }
+    }
+    $scope.createPortfolio();
+  }
   $scope.createPortfolio = function() {
+  if (!$scope.portName) {
+    alert('input is null');
+    return;
+  }
   $http({
       method: 'GET',
       url:'/createPortfolioName',

@@ -47,7 +47,7 @@ $(document).ready( function () {
   var stockData = [{"changepercent":"-5.39%","ticker":"acas","change":"0.77","close":13.51,"open":14.28},{"changepercent":"-3.25%","ticker":"ace","change":"3.70","close":110.08,"open":113.78},{"changepercent":"-2.56%","ticker":"acn","change":"2.61","close":99.26,"open":101.87},{"changepercent":"-3.98%","ticker":"adbe","change":"3.66","close":88.3,"open":91.96},{"changepercent":"-8.53%","ticker":"ads","change":"23.19","close":248.56,"open":271.75},{"changepercent":"-15.61%","ticker":"adsk","change":"9.41","close":50.89,"open":60.3}];
   var table = $('#default_stocks').DataTable({
       "ajax": {
-          "url": "getDataBetweenDate/2016-01-04/2016-01-13",
+          "url": "getDataBetweenDate/2016-01-04/2016-03-24",
           "dataSrc": ""
        },
       "columnDefs":[
@@ -59,20 +59,12 @@ $(document).ready( function () {
       },
           { "orderable": false, "targets": 5 },
       ],
-      "oLanguage": {
-        "oPaginate": {
-          "sFirst": "First",
-          "sPrevious": "Previous",
-          "sNext": "Next",
-          "sLast": "Last"
-        }
-      },
       "columns": [   
          {"data" : "ticker"},  
          {"data" : "open"},  
-         {"data" : "close"},
+         {"data" : null},
          {"data" : "change"},
-         {"data" : "changepercent"},   
+         {"data" : "changePerc"},   
          ],
     });
 
@@ -128,26 +120,28 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
   }
 
   $scope.checkRepeat = function() {
+    var repeat = false;
     $http({
       method: 'GET',
-      url:'/getRecordsFromPortfolio',
+      url:'/getTickersFromPortfolio',
       params: {
         username: "admin",
         portfolioName: $scope.choosedPort,
       }
     }).success(function(data) {
         for (var i = 0; i < data.length; i++) {
-          if (choosedStock == data[i].ticker) {
+          if (choosedStock == data[i]) {
             alert('repeat ticker in this portfolio');
-            return true;
+            repeat = true;
+            return;
           }
-        }
-        return false;
+        };
+        $scope.addTicker();
     })
+    return repeat;
   }
 
   $scope.addTicker = function() {
-    if($scope.checkRepeat()) return;
     $http({
       method: 'GET',
       url:'/addTickerToPortfolio',
