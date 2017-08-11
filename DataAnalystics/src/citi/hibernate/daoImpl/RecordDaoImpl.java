@@ -70,8 +70,8 @@ public class RecordDaoImpl implements RecordDao {
 	public List<Record> searchDataBetweenDate(String start, String end, String ticker) {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
-		String queryString = "select distinct r.ticker from Record r where r.ticker like :name";
-		List<String> tickers = sessionHibernate.createQuery(queryString).setString("name", "%"+ticker+"%").setCacheable(true).list();
+		String queryString = "select distinct r.ticker from Record r where r.ticker like '%"+ticker+"%'";
+		List<String> tickers = sessionHibernate.createQuery(queryString).setCacheable(true).list();
 		List<Record> records = new ArrayList<>();
 		Record record1=null;
 		Record record2=null;
@@ -82,13 +82,13 @@ public class RecordDaoImpl implements RecordDao {
 			record1 =  (Record) sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).setCacheable(true).uniqueResult();
 			while(record1==null) {
 				start = dateTransferServiceImpl.turnLastDay(start);
-				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, ticker).setParameter(1, start).setCacheable(true).uniqueResult();
+				record1 = (Record) sessionHibernate.createQuery(queryString2).setParameter(0, t).setParameter(1, start).setCacheable(true).uniqueResult();
 			}
 			queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).setCacheable(true).uniqueResult();
 			while(record2==null) {
 				end = dateTransferServiceImpl.turnLastDay(end);
-				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).setCacheable(true).uniqueResult();
+				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).setCacheable(true).uniqueResult();
 			}
 		    	records.add(record1);
 			    records.add(record2);
