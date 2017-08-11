@@ -40,10 +40,10 @@ public class RecordDaoImpl implements RecordDao {
 	public List<Record> getDataBetweenDate(String start, String end) {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
-//		String queryString = "select distinct r.ticker from Record r";
-//		List<String> tickers = sessionHibernate.createQuery(queryString).setFirstResult(0).setMaxResults(10).list();
+		String queryString = "select distinct r.ticker from Record r";
+		//List<String> tickers = sessionHibernate.createQuery(queryString).setFirstResult(0).setMaxResults(15).list();
 		List<Record> records = new ArrayList<>();
-		String[] tickers = {"abbv", "amzn","antm","apol","avgo","bbby","bby","biib","bxlt"};
+		String[] tickers = {"abbv", "amzn","antm","apol","avgo","bbby","bby","biib","bxlt","cern","cmcsa","cpgx","csra","ctas"};
 		Record record1=null;
 		Record record2=null;
 		String queryString2;
@@ -71,7 +71,7 @@ public class RecordDaoImpl implements RecordDao {
 		// TODO Auto-generated method stub
 		Session sessionHibernate = HibernateUtil.getSession();
 		String queryString = "select distinct r.ticker from Record r where r.ticker like :name";
-		List<String> tickers = sessionHibernate.createQuery(queryString).setString("name", "%"+ticker+"%").list();
+		List<String> tickers = sessionHibernate.createQuery(queryString).setString("name", "%"+ticker+"%").setCacheable(true).list();
 		List<Record> records = new ArrayList<>();
 		Record record1=null;
 		Record record2=null;
@@ -87,7 +87,7 @@ public class RecordDaoImpl implements RecordDao {
 			queryString3 = "select r from Record r where r.ticker=? and r.date =? and r.time = '1559'";
 			record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, t).setParameter(1, end).setCacheable(true).uniqueResult();
 			while(record2==null) {
-				end = dateTransferServiceImpl.turnLastDay(start);
+				end = dateTransferServiceImpl.turnLastDay(end);
 				record2 = (Record) sessionHibernate.createQuery(queryString3).setParameter(0, ticker).setParameter(1, end).setCacheable(true).uniqueResult();
 			}
 		    	records.add(record1);

@@ -22,12 +22,14 @@ $.ajax({
     }
 })
 //初始K线图
-$.get('getDataBetweenDateByMinute/2016-01-04%2009:30/2016-01-11%2009:30/abbv', function (rawData) {
-	writeK(rawData, "m");
+$.get('getDataBetweenDateByDay/2016-01-04/2016-03-24/abbv', function (rawData) {
+	writeK(rawData, "d");
 });
 
 //通过day minute按钮改变K线图横坐标
 $('#day').on('click', function() {
+    $('#minute').removeClass('btn-success');
+    $(this).addClass('btn-success');
 	$.get('getDataBetweenDateByDay/2016-01-04/2016-03-24/abbv', function (rawData) {
 		writeK(rawData, "d");
 	});
@@ -35,6 +37,8 @@ $('#day').on('click', function() {
 
 //通过day minute按钮改变K线图横坐标
 $('#minute').on('click', function() {
+    $('#day').removeClass('btn-success');
+    $(this).addClass('btn-success');
 	$.get('getDataBetweenDateByMinute/2016-01-04%2009:30/2016-01-11%2009:30/abbv', function (rawData) {
 		writeK(rawData, "m");
 	});

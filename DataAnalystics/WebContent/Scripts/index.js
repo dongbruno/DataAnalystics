@@ -70,9 +70,9 @@ $(document).ready( function () {
 
     //添加新的portfolio 名字
   $('#search').on('click', function() {
+    console.log($('#stock').val());
       var searchUrl = 'searchDataBetweenDate/'+$('#startDate').val()+'/'+$('#endDate').val()+'/'+$('#stock').val();
       var tableUrl = table.ajax.url(searchUrl);
-      console.log(searchUrl)
       tableUrl.load();
   })
 
@@ -151,6 +151,7 @@ angular.module('myApp', []).controller('userCtrl', function($http, $scope) {
         ticker: choosedStock
       }
     }).then(function successCallback(response) {
+        $('#myModal').modal('hide');
         alert("add suceessfully");
     })
   }

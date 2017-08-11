@@ -15,5 +15,6 @@
 	<mvc:resources mapping="/files/**" location="/files/" />
 	<mvc:resources mapping="/Images/**" location="/Images/" />
 	<mvc:resources mapping="/**" location="/" />
+	<mvc:resources mapping="/template/**" location="/template/" />
 	<mvc:resources mapping="/index.html" location="/" />
 </beans>

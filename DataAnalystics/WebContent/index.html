@@ -19,18 +19,27 @@
 </head>
 
 <body ng-app="myApp" ng-controller="userCtrl">
+<div class="loading-wrap">
+  <div class="loading">
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+  </div> 
+  <h2>loading......</h2>
+</div>
   <header>
     <span class="logoName">Data First</span>
     <ul>
-      <li><a href=""><span class="icon-home"></span>home</a></li>
-      <li><a href="user.html"><span class="icon-home"></span> my portfolios</a></li>
+      <li  class="active-li"><a href="">home</a></li>
+      <li><a href="user.html">my portfolios</a></li>
     </ul>
   </header>
   <div id="main">
     <div class="news">
       <h1><em>Data First</em></h1>
-      <p>Wuxia literally means "martial hero". It is broad genre of Chinese fiction describing adventures of martial artists. Young male protagonist undertakes several trials and tribulations and learns several forms of martial arts from various fighters.
-        At the end of the story he becomes a powerful fighter whom few can equal.</p>
+      <p>Data analysis refers to the process of analyzing and collecting the large amount of data by appropriate statistical analysis, extracting useful information and forming a conclusion, and studying and summarizing the data in detail. This process is also the support process of quality management system. In practice, data analysis helps people to make judgments so that appropriate action can be taken.</p>
     </div>
 
     <div class="views">
@@ -51,7 +60,7 @@
         </label>
 
         <label>
-          <input type="button" class="btn btn-lg btn-default" name="search" value="search" disabled="disabled" id="search">
+          <button type="button" class="btn btn-lg btn-default" name="search" disabled="disabled" id="search" style="font-size: 14px;">search</button>
         </label>
       </div>
       <table id="default_stocks" class="display">
